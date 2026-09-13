@@ -284,6 +284,19 @@
   .confirm-sheet .sheet { max-width: 340px; text-align: center; padding: 28px 24px; border-radius: 20px; }
   .confirm-sheet p { color: var(--ink-soft); font-size: 14px; margin: 8px 0 20px; }
 
+  .photo-choice-sheet .sheet { max-width: 340px; padding: 12px; border-radius: 20px; }
+  .photo-choice-btn {
+    display: flex; align-items: center; gap: 12px; width: 100%; text-align: left;
+    background: transparent; border: none; border-radius: 12px; padding: 14px 12px;
+    font-size: 15px; font-weight: 600; color: var(--ink); cursor: pointer;
+  }
+  .photo-choice-btn:hover { background: var(--paper-elev); }
+  .photo-choice-btn .ic {
+    width: 36px; height: 36px; border-radius: 50%; background: var(--indigo-tint); color: var(--indigo);
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .photo-choice-cancel { margin-top: 4px; }
+
   .toast {
     position: fixed; left: 50%; bottom: 100px; transform: translateX(-50%) translateY(20px);
     background: var(--indigo-deep); color: #FBF7EC; padding: 11px 20px; border-radius: 999px;
@@ -372,7 +385,8 @@
     <div class="field">
       <label class="flabel">写真(最大6枚)</label>
       <div class="photo-row" id="photoRow"></div>
-      <input type="file" id="photoInput" accept="image/*" multiple hidden>
+      <input type="file" id="cameraInput" accept="image/*" capture="environment" hidden>
+      <input type="file" id="libraryInput" accept="image/*" multiple hidden>
     </div>
 
     <div class="field">
@@ -483,6 +497,21 @@
       <button class="btn btn-ghost" id="confirmCancelBtn">キャンセル</button>
       <button class="btn btn-primary" id="confirmOkBtn" style="background:var(--vermillion);">削除する</button>
     </div>
+  </div>
+</div>
+
+<!-- Photo add choice -->
+<div class="overlay photo-choice-sheet" id="photoChoiceOverlay" hidden>
+  <div class="sheet">
+    <button class="photo-choice-btn" id="choiceCameraBtn">
+      <span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2Z"/><circle cx="12" cy="13" r="4"/></svg></span>
+      カメラで撮影
+    </button>
+    <button class="photo-choice-btn" id="choiceLibraryBtn">
+      <span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></span>
+      ライブラリから選択
+    </button>
+    <button class="btn btn-ghost photo-choice-cancel" id="choiceCancelBtn">キャンセル</button>
   </div>
 </div>
 
@@ -750,19 +779,35 @@
       });
     });
     const addBtn = $("#photoAddBtn");
-    if (addBtn) addBtn.addEventListener("click", () => $("#photoInput").click());
+    if (addBtn) addBtn.addEventListener("click", openPhotoChoice);
   }
 
-  $("#photoInput").addEventListener("change", async (e) => {
-    const files = Array.from(e.target.files || []).slice(0, 6 - currentPhotos.length);
+  async function addPhotoFiles(fileList) {
+    const files = Array.from(fileList || []).slice(0, 6 - currentPhotos.length);
     for (const f of files) {
       try {
         const dataUrl = await resizeImageFile(f);
         currentPhotos.push(dataUrl);
       } catch (err) { /* skip unreadable file */ }
     }
-    e.target.value = "";
     renderPhotoRow();
+  }
+
+  function openPhotoChoice() { $("#photoChoiceOverlay").hidden = false; }
+  function closePhotoChoice() { $("#photoChoiceOverlay").hidden = true; }
+
+  $("#choiceCameraBtn").addEventListener("click", () => { closePhotoChoice(); $("#cameraInput").click(); });
+  $("#choiceLibraryBtn").addEventListener("click", () => { closePhotoChoice(); $("#libraryInput").click(); });
+  $("#choiceCancelBtn").addEventListener("click", closePhotoChoice);
+  $("#photoChoiceOverlay").addEventListener("click", (e) => { if (e.target.id === "photoChoiceOverlay") closePhotoChoice(); });
+
+  $("#cameraInput").addEventListener("change", async (e) => {
+    await addPhotoFiles(e.target.files);
+    e.target.value = "";
+  });
+  $("#libraryInput").addEventListener("change", async (e) => {
+    await addPhotoFiles(e.target.files);
+    e.target.value = "";
   });
 
   $("#fTaste").addEventListener("input", (e) => $("#tasteVal").textContent = e.target.value);
