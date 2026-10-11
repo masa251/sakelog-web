@@ -642,15 +642,9 @@
       <input type="text" id="fBrewery" placeholder="例: 旭酒造">
     </div>
 
-    <div class="two-col">
-      <div class="field">
-        <label class="flabel" for="fRegion">産地</label>
-        <input type="text" id="fRegion" placeholder="例: 山口県">
-      </div>
-      <div class="field">
-        <label class="flabel" for="fAbv">度数(%)</label>
-        <input type="number" id="fAbv" step="0.1" min="0" max="100" placeholder="例: 16">
-      </div>
+    <div class="field">
+      <label class="flabel" for="fRegion">産地</label>
+      <input type="text" id="fRegion" placeholder="例: 山口県">
     </div>
 
     <div class="field">
@@ -658,21 +652,17 @@
       <input type="text" id="fRice" placeholder="例: 山田錦、五百万石、美山錦">
     </div>
 
-    <div class="field">
-      <label class="flabel" for="fPolish">精米歩合(%)</label>
-      <input type="text" id="fPolish" inputmode="numeric" placeholder="例: 50" autocomplete="off">
-      <div class="field-error" id="polishError" hidden>1〜100の整数で入力してください</div>
-    </div>
-
-    <div class="field">
-      <label class="flabel" for="fDate">飲んだ日</label>
-      <input type="date" id="fDate">
-    </div>
-
-    <div class="field">
-      <label class="flabel">甘口・中間・辛口<span class="val" id="sweetDryVal">未設定</span></label>
-      <div class="seg" id="sweetDryBox" role="group" aria-label="甘口・中間・辛口"></div>
-      <p class="hint">飲んだ印象で選んでください。もう一度押すと未設定に戻ります。</p>
+    <!-- 度数・精米歩合・日本酒度・酸度はこの順に並べる(Android版の入力画面・詳細画面と同じ順番) -->
+    <div class="two-col">
+      <div class="field">
+        <label class="flabel" for="fAbv">アルコール度数(%)</label>
+        <input type="number" id="fAbv" step="0.1" min="0" max="100" placeholder="例: 16">
+      </div>
+      <div class="field">
+        <label class="flabel" for="fPolish">精米歩合(%)</label>
+        <input type="text" id="fPolish" inputmode="numeric" placeholder="例: 50" autocomplete="off">
+        <div class="field-error" id="polishError" hidden>1〜100の整数で入力してください</div>
+      </div>
     </div>
 
     <div class="two-col">
@@ -691,6 +681,17 @@
       </div>
     </div>
     <p style="margin:-12px 0 20px; font-size:12px; color:var(--ink-faint); line-height:1.6;">日本酒度・酸度はラベルに記載があれば入力してください(任意・小数1桁まで)。</p>
+
+    <div class="field">
+      <label class="flabel" for="fDate">飲んだ日</label>
+      <input type="date" id="fDate">
+    </div>
+
+    <div class="field">
+      <label class="flabel">甘口・中間・辛口<span class="val" id="sweetDryVal">未設定</span></label>
+      <div class="seg" id="sweetDryBox" role="group" aria-label="甘口・中間・辛口"></div>
+      <p class="hint">飲んだ印象で選んでください。もう一度押すと未設定に戻ります。</p>
+    </div>
 
     <div class="field">
       <label class="flabel">飲みやすさ</label>
@@ -1401,7 +1402,7 @@
       const filled = [];
       if (parsed.name && !$("#fName").value.trim()) { $("#fName").value = parsed.name; filled.push("銘柄名"); }
       if (parsed.region && !$("#fRegion").value.trim()) { $("#fRegion").value = parsed.region; filled.push("産地"); }
-      if (parsed.abv != null && $("#fAbv").value === "") { $("#fAbv").value = parsed.abv; filled.push("度数"); }
+      if (parsed.abv != null && $("#fAbv").value === "") { $("#fAbv").value = parsed.abv; filled.push("アルコール度数"); }
       showToast(filled.length ? `写真から${filled.join("・")}を入力しました。内容を確認・修正してください。` : "ラベルから入力できる項目は見つかりませんでした。");
     } catch (err) {
       console.error("ラベルの読み取りに失敗しました", err);
