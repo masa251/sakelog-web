@@ -77,7 +77,7 @@
     padding: 0;
   }
   h1, h2, h3 { font-family: "Noto Serif JP", "Hiragino Mincho ProN", serif; color: var(--ink); text-wrap: balance; margin: 0; }
-  button { font-family: inherit; }
+  button { font-family: inherit; touch-action: manipulation; cursor: pointer; -webkit-appearance: none; }
   a { color: var(--indigo); }
   a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
     outline: 2px solid var(--focus); outline-offset: 2px;
@@ -310,6 +310,61 @@
     background: var(--paper-elev); border: 1px solid var(--line); border-radius: 999px; padding: 3px 10px; margin-top: 10px;
   }
 
+  /* ---------- 日本酒度・酸度 ---------- */
+  .input-with-btn { display: flex; gap: 6px; }
+  .input-with-btn input { flex: 1; min-width: 0; }
+  .sign-btn {
+    flex-shrink: 0; width: 44px; border-radius: 10px; border: 1px solid var(--line-strong);
+    background: var(--paper-elev); color: var(--ink); font-size: 14px; font-weight: 700;
+  }
+  input.invalid { border-color: var(--vermillion); }
+  .field-error { font-size: 12px; color: var(--vermillion); margin-top: 5px; line-height: 1.5; }
+  .field-error[hidden] { display: none; }
+
+  /* ---------- 味わいノート(1〜5の丸ボタン) ---------- */
+  .levels { background: var(--paper-elev); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; display: flex; flex-direction: column; gap: 10px; }
+  .level-row { display: flex; align-items: center; gap: 10px; }
+  .level-name { width: 64px; flex-shrink: 0; }
+  .level-name b { display: block; font-size: 14px; }
+  .level-name small { display: block; font-size: 11px; color: var(--ink-faint); }
+  .level-name small.on { color: var(--indigo); }
+  .level-btns { flex: 1; display: flex; justify-content: space-between; gap: 4px; }
+  .level-btn {
+    width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--line-strong);
+    background: var(--paper); color: var(--ink-soft); font-size: 14px; font-weight: 700; padding: 0;
+  }
+  .level-btn.filled { background: var(--indigo); border-color: var(--indigo); color: var(--paper); }
+  .level-btn.current { box-shadow: 0 0 0 2px var(--paper), 0 0 0 4px var(--indigo); }
+
+  /* ---------- おすすめの飲み方(1つ選択) ---------- */
+  .chip-group { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip {
+    border: 1px solid var(--line-strong); background: var(--paper-elev); color: var(--ink);
+    border-radius: 999px; padding: 8px 16px; font-size: 14px;
+  }
+  .chip[aria-pressed="true"] { background: var(--vermillion-soft); border-color: var(--vermillion); color: var(--vermillion-deep); font-weight: 700; }
+
+  /* ---------- 詳細: 味わいノート ---------- */
+  .detail-levels { background: var(--paper-elev); border-radius: 12px; padding: 12px 14px; margin-bottom: 18px; display: flex; flex-direction: column; gap: 8px; }
+  .detail-levels h3 { font-size: 14px; }
+  .detail-level { display: flex; align-items: center; justify-content: space-between; font-size: 13.5px; }
+  .detail-level .k { color: var(--ink-soft); }
+  .dots { display: inline-flex; gap: 4px; margin-right: 8px; vertical-align: middle; }
+  .dots i { width: 10px; height: 10px; border-radius: 50%; background: var(--line-strong); display: inline-block; }
+  .dots i.on { background: var(--indigo); }
+
+  .photo-add[disabled] { opacity: 0.6; cursor: progress; }
+
+  /* ---------- エラー表示(iOS Safari等で「何も起きない」状態を避けるため) ---------- */
+  .error-banner {
+    position: fixed; left: 12px; right: 12px; top: 12px; z-index: 400;
+    background: var(--vermillion); color: #FBF7EC; border-radius: 12px; padding: 12px 40px 12px 14px;
+    font-size: 13px; line-height: 1.6; box-shadow: var(--shadow-lift); word-break: break-all;
+  }
+  .error-banner[hidden] { display: none; }
+  .error-banner button { position: absolute; top: 6px; right: 6px; width: 30px; height: 30px; border: none; background: transparent; color: inherit; font-size: 16px; }
+  .toast { max-width: calc(100vw - 32px); white-space: normal; text-align: center; }
+
   @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 </style>
 </head>
@@ -406,6 +461,11 @@
     </div>
 
     <div class="field">
+      <label class="flabel" for="fRice">使用米</label>
+      <input type="text" id="fRice" placeholder="例: 山田錦、五百万石、美山錦">
+    </div>
+
+    <div class="field">
       <label class="flabel">味わい(辛口 〜 甘口)</label>
       <div class="scale">
         <div class="scale-top"><span></span><span class="scale-val fvn" id="tasteVal">3</span></div>
@@ -413,6 +473,23 @@
         <div class="scale-labels"><span>辛口</span><span>甘口</span></div>
       </div>
     </div>
+
+    <div class="two-col">
+      <div class="field">
+        <label class="flabel" for="fSmv">日本酒度</label>
+        <div class="input-with-btn">
+          <input type="text" id="fSmv" inputmode="decimal" placeholder="例: +3.5" autocomplete="off">
+          <button type="button" class="sign-btn" id="smvSignBtn" aria-label="日本酒度のプラス・マイナスを切り替え">±</button>
+        </div>
+        <div class="field-error" id="smvError" hidden>-100〜+100の数値(小数1桁まで)で入力してください</div>
+      </div>
+      <div class="field">
+        <label class="flabel" for="fAcidity">酸度</label>
+        <input type="text" id="fAcidity" inputmode="decimal" placeholder="例: 1.4" autocomplete="off">
+        <div class="field-error" id="acidityError" hidden>0〜10の数値(小数1桁まで)で入力してください</div>
+      </div>
+    </div>
+    <p style="margin:-12px 0 20px; font-size:12px; color:var(--ink-faint); line-height:1.6;">日本酒度・酸度はラベルに記載があれば入力してください(任意・小数1桁まで)。</p>
 
     <div class="field">
       <label class="flabel">飲みやすさ</label>
@@ -432,6 +509,17 @@
         <label class="flabel" for="fDate">飲んだ日</label>
         <input type="date" id="fDate">
       </div>
+    </div>
+
+    <div class="field">
+      <label class="flabel">味わいノート</label>
+      <div class="levels" id="levelsBox"></div>
+      <p class="hint">甘み・旨み・酸味・苦み・香りを、どのくらい強く感じたか1(弱い)〜5(強い)で記録します。もう一度タップすると未評価に戻ります。</p>
+    </div>
+
+    <div class="field">
+      <label class="flabel">おすすめの飲み方</label>
+      <div class="chip-group" id="servingBox" role="group" aria-label="おすすめの飲み方"></div>
     </div>
 
     <div class="field">
@@ -481,6 +569,7 @@
       <div class="detail-item"><span class="k">飲みやすさ</span></div>
       <div class="bar" id="detailDrinkBar"><i></i></div>
     </div>
+    <div class="detail-levels" id="detailLevels"></div>
     <div class="field">
       <div class="detail-item"><span class="k">メモ</span></div>
       <div class="detail-notes" id="detailNotes">—</div>
@@ -525,10 +614,73 @@
 </div>
 
 <div class="toast" id="toast"></div>
+<div class="error-banner" id="errorBanner" role="alert" hidden><span id="errorText"></span><button type="button" id="errorClose" aria-label="閉じる">✕</button></div>
 
 <script>
 (function () {
   "use strict";
+
+  /* ---------------- エラー表示 ----------------
+     JSのエラーが起きても画面上では「何も起きない」ように見えるため、原因が分かるよう画面に表示する。 */
+  function showError(msg) {
+    try {
+      document.getElementById("errorText").textContent = msg;
+      document.getElementById("errorBanner").hidden = false;
+    } catch (e) { /* 表示自体に失敗しても何もしない */ }
+  }
+  window.addEventListener("error", (e) => {
+    showError("エラーが発生しました: " + (e.message || "不明なエラー"));
+  });
+  window.addEventListener("unhandledrejection", (e) => {
+    const r = e.reason;
+    showError("エラーが発生しました: " + ((r && (r.message || r.name)) || String(r)));
+  });
+  document.getElementById("errorClose").addEventListener("click", () => {
+    document.getElementById("errorBanner").hidden = true;
+  });
+
+  /* ---------------- 追加項目の定義 ----------------
+     Android版と同じ名称・保存値を使う。変更するときは両方をそろえること。 */
+  const TASTING_ITEMS = [
+    ["sweetness", "甘み"], ["umami", "旨み"], ["sourness", "酸味"], ["bitterness", "苦み"], ["aroma", "香り"]
+  ];
+  const LEVEL_LABELS = { 1: "弱い", 2: "やや弱い", 3: "ふつう", 4: "やや強い", 5: "強い" };
+  const SERVING_STYLES = [
+    ["cold", "冷"], ["room", "常温・冷や"], ["nurukan", "ぬる燗"], ["atsukan", "熱燗"]
+  ];
+  const servingLabel = (code) => {
+    const f = SERVING_STYLES.find(([c]) => c === code);
+    return f ? f[1] : null;
+  };
+
+  /* 日本酒度・酸度: 全角数字や各種マイナス記号も受け付け、小数1桁まで・範囲内のみ有効にする */
+  function normalizeNum(text) {
+    return String(text || "")
+      .replace(/[０-９]/g, (c) => String.fromCharCode(c.charCodeAt(0) - 0xFEE0))
+      .replace(/[．。]/g, ".")
+      .replace(/＋/g, "+")
+      .replace(/[－−ー‐―—]/g, "-")
+      .replace(/[\s　]/g, "");
+  }
+  function parseSmv(text) {
+    const v = normalizeNum(text);
+    if (!/^[+-]?\d{1,3}(\.\d)?$/.test(v)) return null;
+    const n = Number(v);
+    return n >= -100 && n <= 100 ? n : null;
+  }
+  function parseAcidity(text) {
+    const v = normalizeNum(text);
+    if (!/^\d{1,2}(\.\d)?$/.test(v)) return null;
+    const n = Number(v);
+    return n >= 0 && n <= 10 ? n : null;
+  }
+  const plainNum = (n) => String(Math.round(n * 10) / 10);
+  function formatSmv(n) {
+    if (n == null) return null;
+    if (n > 0) return "+" + plainNum(n);
+    if (n === 0) return "±0";
+    return plainNum(n);
+  }
 
   /* ---------------- IndexedDB layer ---------------- */
   const DB_NAME = "sakelog-web";
@@ -606,15 +758,35 @@
   }
 
   /* ---------------- Image handling ---------------- */
+  const MAX_PHOTO_BYTES = 40 * 1024 * 1024;
+
+  /* 画像を縮小してJPEGのdata URLにする。
+     以前はファイル全体をdata URL(元サイズの約1.3倍の文字列)にしてから読み込んでいたため、
+     大きな写真でスマホのブラウザがメモリ不足になりやすかった。ObjectURLで直接読み込むように変更。
+     失敗時は画面に表示できる日本語メッセージ付きのErrorを投げる。 */
   function resizeImageFile(file, maxDim = 1440, quality = 0.82) {
     return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onerror = () => reject(reader.error);
-      reader.onload = () => {
-        const img = new Image();
-        img.onerror = reject;
-        img.onload = () => {
-          let { width, height } = img;
+      if (file.type && !file.type.startsWith("image/")) {
+        reject(new Error("画像ファイルではありません"));
+        return;
+      }
+      if (file.size > MAX_PHOTO_BYTES) {
+        reject(new Error("写真のサイズが大きすぎます(40MBまで)"));
+        return;
+      }
+      const url = URL.createObjectURL(file);
+      const img = new Image();
+      img.onerror = () => {
+        URL.revokeObjectURL(url);
+        const heic = /hei[cf]/i.test(file.type) || /\.hei[cf]$/i.test(file.name || "");
+        reject(new Error(heic
+          ? "このブラウザではHEIC形式の写真を読み込めません(JPEGで保存した写真をお使いください)"
+          : "この写真の形式は読み込めませんでした"));
+      };
+      img.onload = () => {
+        try {
+          let width = img.naturalWidth, height = img.naturalHeight;
+          if (!width || !height) throw new Error("画像のサイズを取得できませんでした");
           if (width > maxDim || height > maxDim) {
             if (width >= height) { height = Math.round(height * (maxDim / width)); width = maxDim; }
             else { width = Math.round(width * (maxDim / height)); height = maxDim; }
@@ -622,12 +794,18 @@
           const canvas = document.createElement("canvas");
           canvas.width = width; canvas.height = height;
           const ctx = canvas.getContext("2d");
+          if (!ctx) throw new Error("画像の変換に失敗しました");
           ctx.drawImage(img, 0, 0, width, height);
-          resolve(canvas.toDataURL("image/jpeg", quality));
-        };
-        img.src = reader.result;
+          const dataUrl = canvas.toDataURL("image/jpeg", quality);
+          if (!dataUrl || dataUrl.length < 100) throw new Error("画像の変換に失敗しました");
+          resolve(dataUrl);
+        } catch (err) {
+          reject(err);
+        } finally {
+          URL.revokeObjectURL(url);
+        }
       };
-      reader.readAsDataURL(file);
+      img.src = url;
     });
   }
 
@@ -729,7 +907,15 @@
     $("#formTitle").textContent = "新しい記録";
     $("#fName").value = "";
     $("#fRegion").value = "";
+    $("#fRice").value = "";
     $("#fAbv").value = "";
+    $("#fSmv").value = "";
+    $("#fAcidity").value = "";
+    clearSpecErrors();
+    currentLevels = {};
+    currentServing = null;
+    renderLevels();
+    renderServing();
     $("#fTaste").value = 3; $("#tasteVal").textContent = "3";
     $("#fDrink").value = 3; $("#drinkVal").textContent = "3";
     $("#fPrice").value = "";
@@ -746,7 +932,18 @@
     $("#formTitle").textContent = "記録を編集";
     $("#fName").value = r.name || "";
     $("#fRegion").value = r.region || "";
+    $("#fRice").value = r.riceVariety || "";
     $("#fAbv").value = r.abv != null ? r.abv : "";
+    // 0は「±0」だと入力しにくいので「0」に戻す
+    $("#fSmv").value = r.sakeMeterValue != null ? (r.sakeMeterValue === 0 ? "0" : formatSmv(r.sakeMeterValue)) : "";
+    $("#fAcidity").value = r.acidity != null ? plainNum(r.acidity) : "";
+    clearSpecErrors();
+    // 以前の記録には新しい項目が無いので、無い場合は未評価・未選択として扱う
+    currentLevels = {};
+    TASTING_ITEMS.forEach(([key]) => { currentLevels[key] = r[key] != null ? r[key] : null; });
+    currentServing = servingLabel(r.servingStyle) ? r.servingStyle : null;
+    renderLevels();
+    renderServing();
     const t = r.taste != null ? r.taste : 3;
     $("#fTaste").value = t; $("#tasteVal").textContent = t;
     const d = r.drinkability != null ? r.drinkability : 3;
@@ -770,7 +967,7 @@
     row.innerHTML = thumbs + (canAdd ? `
       <button type="button" class="photo-add" id="photoAddBtn">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
-        追加
+        <span>追加</span>
       </button>` : "");
     row.querySelectorAll(".rm").forEach(btn => {
       btn.addEventListener("click", () => {
@@ -783,15 +980,91 @@
   }
 
   async function addPhotoFiles(fileList) {
-    const files = Array.from(fileList || []).slice(0, 6 - currentPhotos.length);
+    // キャンセルされた場合はファイルが空なので何もしない
+    const all = Array.from(fileList || []);
+    if (all.length === 0) return;
+    const files = all.slice(0, 6 - currentPhotos.length);
+    const addBtn = $("#photoAddBtn");
+    if (addBtn) { addBtn.disabled = true; addBtn.querySelector("span").textContent = "読込中"; }
+    const errors = [];
     for (const f of files) {
       try {
         const dataUrl = await resizeImageFile(f);
         currentPhotos.push(dataUrl);
-      } catch (err) { /* skip unreadable file */ }
+      } catch (err) {
+        console.error("写真の読み込みに失敗しました", f && f.name, err);
+        errors.push((err && err.message) || "読み込めませんでした");
+      }
     }
     renderPhotoRow();
+    if (errors.length === 1) showToast(errors[0]);
+    else if (errors.length > 1) showToast(errors.length + "枚の写真を読み込めませんでした(" + errors[0] + ")");
+    else if (all.length > files.length) showToast("写真は最大6枚まで登録できます");
   }
+
+  /* ---------------- 味わいノート・おすすめの飲み方(フォーム) ---------------- */
+  let currentLevels = {};     // 例: { sweetness: 4, umami: null, ... }
+  let currentServing = null;  // "cold" | "room" | "nurukan" | "atsukan" | null
+
+  function renderLevels() {
+    $("#levelsBox").innerHTML = TASTING_ITEMS.map(([key, name]) => {
+      const v = currentLevels[key] || null;
+      const btns = [1, 2, 3, 4, 5].map(n => `
+        <button type="button" class="level-btn${v && n <= v ? " filled" : ""}${v === n ? " current" : ""}"
+          data-key="${key}" data-n="${n}" aria-pressed="${v === n}" aria-label="${name} ${n}">${n}</button>`).join("");
+      return `
+        <div class="level-row">
+          <div class="level-name"><b>${name}</b><small class="${v ? "on" : ""}">${v ? LEVEL_LABELS[v] : "未評価"}</small></div>
+          <div class="level-btns">${btns}</div>
+        </div>`;
+    }).join("");
+    $("#levelsBox").querySelectorAll(".level-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const key = btn.getAttribute("data-key");
+        const n = Number(btn.getAttribute("data-n"));
+        // 選択中の段階をもう一度押すと未評価に戻す
+        currentLevels[key] = currentLevels[key] === n ? null : n;
+        renderLevels();
+      });
+    });
+  }
+
+  function renderServing() {
+    $("#servingBox").innerHTML = SERVING_STYLES.map(([code, label]) =>
+      `<button type="button" class="chip" data-code="${code}" aria-pressed="${currentServing === code}">${label}</button>`
+    ).join("");
+    $("#servingBox").querySelectorAll(".chip").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const code = btn.getAttribute("data-code");
+        currentServing = currentServing === code ? null : code;
+        renderServing();
+      });
+    });
+  }
+
+  function validateSpecs(showAll) {
+    const smvText = $("#fSmv").value, acText = $("#fAcidity").value;
+    const smvOk = smvText.trim() === "" || parseSmv(smvText) != null;
+    const acOk = acText.trim() === "" || parseAcidity(acText) != null;
+    if (showAll || smvText.trim() !== "") {
+      $("#smvError").hidden = smvOk; $("#fSmv").classList.toggle("invalid", !smvOk);
+    }
+    if (showAll || acText.trim() !== "") {
+      $("#acidityError").hidden = acOk; $("#fAcidity").classList.toggle("invalid", !acOk);
+    }
+    return { smvOk, acOk };
+  }
+  function clearSpecErrors() {
+    $("#smvError").hidden = true; $("#acidityError").hidden = true;
+    $("#fSmv").classList.remove("invalid"); $("#fAcidity").classList.remove("invalid");
+  }
+  $("#fSmv").addEventListener("blur", () => validateSpecs(false));
+  $("#fAcidity").addEventListener("blur", () => validateSpecs(false));
+  $("#smvSignBtn").addEventListener("click", () => {
+    // iPhoneの数字キーボードには「-」が無いため、符号を切り替えるボタンを用意している
+    const t = $("#fSmv").value.trim();
+    $("#fSmv").value = t.startsWith("-") ? "+" + t.slice(1) : t.startsWith("+") ? "-" + t.slice(1) : "-" + t;
+  });
 
   function openPhotoChoice() { $("#photoChoiceOverlay").hidden = false; }
   function closePhotoChoice() { $("#photoChoiceOverlay").hidden = true; }
@@ -824,11 +1097,26 @@
   $("#formOverlay").addEventListener("click", (e) => { if (e.target.id === "formOverlay") closeForm(); });
 
   $("#saveBtn").addEventListener("click", async () => {
+    // 日本酒度・酸度の形式が誤っていると値が失われるため、保存せずに理由を表示する
+    const { smvOk, acOk } = validateSpecs(true);
+    if (!smvOk || !acOk) {
+      showToast([!smvOk && "日本酒度", !acOk && "酸度"].filter(Boolean).join("・") + "の入力内容を確認してください");
+      return;
+    }
     const rec = {
       id: currentEditId || (Date.now() + "-" + Math.random().toString(36).slice(2, 8)),
       name: $("#fName").value.trim(),
       region: $("#fRegion").value.trim(),
+      riceVariety: $("#fRice").value.trim() || null,
       abv: $("#fAbv").value === "" ? null : Number($("#fAbv").value),
+      sakeMeterValue: parseSmv($("#fSmv").value),
+      acidity: parseAcidity($("#fAcidity").value),
+      sweetness: currentLevels.sweetness || null,
+      umami: currentLevels.umami || null,
+      sourness: currentLevels.sourness || null,
+      bitterness: currentLevels.bitterness || null,
+      aroma: currentLevels.aroma || null,
+      servingStyle: currentServing,
       taste: Number($("#fTaste").value),
       drinkability: Number($("#fDrink").value),
       price: $("#fPrice").value === "" ? null : Number($("#fPrice").value),
@@ -838,7 +1126,14 @@
       photos: currentPhotos.slice(),
       createdAt: currentEditId ? (records.find(r => r.id === currentEditId) || {}).createdAt || Date.now() : Date.now()
     };
-    await dbPut(rec);
+    try {
+      await dbPut(rec);
+    } catch (err) {
+      console.error("保存に失敗しました", err);
+      const quota = err && err.name === "QuotaExceededError";
+      showToast(quota ? "保存できませんでした(端末の空き容量が不足しています)" : "保存できませんでした。もう一度お試しください");
+      return;
+    }
     await reload();
     closeForm();
     showToast(currentEditId ? "更新しました" : "記録しました");
@@ -870,7 +1165,11 @@
 
     const items = [
       ["産地", r.region],
+      ["使用米", r.riceVariety],
       ["アルコール度数", r.abv != null ? r.abv + "%" : null],
+      ["日本酒度", r.sakeMeterValue != null ? formatSmv(r.sakeMeterValue) : null],
+      ["酸度", r.acidity != null ? plainNum(r.acidity) : null],
+      ["おすすめの飲み方", servingLabel(r.servingStyle)],
       ["価格", r.price != null ? "¥" + Number(r.price).toLocaleString() : null],
       ["飲んだ日", r.tastedDate],
     ];
@@ -884,13 +1183,28 @@
     $("#detailDrinkBar i").style.left = tasteDotPercent(r.drinkability) + "%";
     $("#detailNotes").textContent = r.notes && r.notes.trim() ? r.notes : "メモはありません";
 
+    $("#detailLevels").innerHTML = `<h3>味わいノート <small style="font-weight:400;color:var(--ink-faint);font-size:11px;">1(弱い)〜5(強い)</small></h3>` +
+      TASTING_ITEMS.map(([key, name]) => {
+        const v = r[key];
+        const val = v
+          ? `<span><span class="dots">${[1, 2, 3, 4, 5].map(n => `<i class="${n <= v ? "on" : ""}"></i>`).join("")}</span>${v}(${LEVEL_LABELS[v]})</span>`
+          : `<span style="color:var(--ink-faint)">未評価</span>`;
+        return `<div class="detail-level"><span class="k">${name}</span>${val}</div>`;
+      }).join("");
+
     $("#detailOverlay").hidden = false;
   }
   function closeDetail() { $("#detailOverlay").hidden = true; currentDetail = null; }
 
   $("#detailCloseBtn").addEventListener("click", closeDetail);
   $("#detailOverlay").addEventListener("click", (e) => { if (e.target.id === "detailOverlay") closeDetail(); });
-  $("#detailEditBtn").addEventListener("click", () => { if (currentDetail) { closeDetail(); openForm(currentDetail); } });
+  $("#detailEditBtn").addEventListener("click", () => {
+    // closeDetail()でcurrentDetailが空になるため、先に記録を取っておく(以前は空の新規フォームが開いていた)
+    const record = currentDetail;
+    if (!record) return;
+    closeDetail();
+    openForm(record);
+  });
   $("#detailFavBtn").addEventListener("click", async () => {
     if (!currentDetail) return;
     currentDetail.isFavorite = !currentDetail.isFavorite;
