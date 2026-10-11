@@ -6,7 +6,7 @@
 <title>酒ログ</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
   :root {
     --paper: #FAF6EC;
@@ -76,7 +76,8 @@
     font-family: "Noto Sans JP", "Hiragino Sans", "Yu Gothic", sans-serif;
     padding: 0;
   }
-  h1, h2, h3 { font-family: "Noto Serif JP", "Hiragino Mincho ProN", serif; color: var(--ink); text-wrap: balance; margin: 0; }
+  /* 見出しも本文と同じゴシック体(Noto Sans JP)にそろえる(Android版の端末標準ゴシック体と統一) */
+  h1, h2, h3 { font-family: inherit; font-weight: 700; color: var(--ink); text-wrap: balance; margin: 0; }
   button { font-family: inherit; touch-action: manipulation; cursor: pointer; -webkit-appearance: none; }
   a { color: var(--indigo); }
   a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
@@ -107,8 +108,9 @@
     background: rgba(255,255,255,0.14); border: 1px solid rgba(255,255,255,0.24);
     border-radius: 12px; padding: 9px 12px;
   }
-  .search-box input {
-    background: transparent; border: none; outline: none; color: #FBF7EC; font-size: 14.5px; width: 100%;
+  /* 入力欄共通のデザイン(input[type="text"])より優先させるため、type指定まで含めて書く */
+  .search-box input[type="text"] {
+    background: transparent; border: none; outline: none; color: #FBF7EC; font-size: 14.5px; width: 100%; padding: 0;
   }
   .search-box input::placeholder { color: rgba(251,247,236,0.6); }
   .search-box svg { flex-shrink: 0; opacity: 0.85; }
@@ -155,8 +157,6 @@
   .card .name { font-weight: 700; font-size: 15.5px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .card .fav { margin-left: auto; flex-shrink: 0; color: var(--vermillion); }
   .card .meta { font-size: 12.5px; color: var(--ink-soft); display: flex; gap: 8px; flex-wrap: wrap; }
-  .card .taste-bar { height: 4px; border-radius: 2px; background: var(--line); position: relative; margin-top: 2px; max-width: 140px; }
-  .card .taste-bar i { position: absolute; top: -2px; width: 8px; height: 8px; border-radius: 50%; background: var(--vermillion); transform: translateX(-50%); }
 
   /* ---------- FAB ---------- */
   .fab {
@@ -197,7 +197,7 @@
 
   /* ---------- Form ---------- */
   .field { margin-bottom: 20px; }
-  .field label.flabel { display: block; font-size: 13px; font-weight: 700; color: var(--ink-soft); letter-spacing: 0.02em; margin-bottom: 8px; }
+  .field label.flabel { display: block; font-size: 14px; font-weight: 700; color: var(--ink-soft); letter-spacing: 0.02em; margin-bottom: 8px; }
   .field .hint { font-size: 12px; color: var(--ink-faint); margin-top: 5px; line-height: 1.6; }
   input[type="text"], input[type="number"], input[type="date"], textarea {
     width: 100%; font-size: 15px; padding: 11px 13px; border-radius: 10px;
@@ -247,7 +247,9 @@
   .switch input:checked + .track { background: var(--vermillion); }
   .switch input:checked + .track::before { transform: translateX(18px); }
 
-  .btn { border: none; border-radius: 12px; padding: 13px 18px; font-size: 15px; font-weight: 700; cursor: pointer; width: 100%; }
+  /* 主要ボタン: 高さ52・角丸12 / 補助ボタン(.btn-outline): 高さ48・角丸12。Android版と同じ寸法 */
+  .btn { border: none; border-radius: 12px; min-height: 52px; padding: 0 18px; font-size: 16px; font-weight: 700; cursor: pointer; width: 100%; }
+  .btn-outline { background: transparent; color: var(--indigo); border: 1px solid var(--line-strong); min-height: 48px; font-size: 15px; }
   .btn-primary { background: var(--vermillion); color: #FBF7EC; }
   .btn-primary:hover { background: var(--vermillion-deep); }
   .btn-ghost { background: transparent; color: var(--ink-soft); }
@@ -324,7 +326,7 @@
   /* ---------- 味わいノート(1〜5の丸ボタン) ---------- */
   .levels { background: var(--paper-elev); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; display: flex; flex-direction: column; gap: 10px; }
   .level-row { display: flex; align-items: center; gap: 10px; }
-  .level-name { width: 64px; flex-shrink: 0; }
+  .level-name { width: 60px; flex-shrink: 0; }
   .level-name b { display: block; font-size: 14px; }
   .level-name small { display: block; font-size: 11px; color: var(--ink-faint); }
   .level-name small.on { color: var(--indigo); }
@@ -336,11 +338,11 @@
   .level-btn.filled { background: var(--indigo); border-color: var(--indigo); color: var(--paper); }
   .level-btn.current { box-shadow: 0 0 0 2px var(--paper), 0 0 0 4px var(--indigo); }
 
-  /* ---------- おすすめの飲み方(1つ選択) ---------- */
+  /* ---------- 飲用温度(1つ選択) ---------- */
   .chip-group { display: flex; flex-wrap: wrap; gap: 8px; }
   .chip {
     border: 1px solid var(--line-strong); background: var(--paper-elev); color: var(--ink);
-    border-radius: 999px; padding: 8px 16px; font-size: 14px;
+    border-radius: 10px; min-height: 40px; padding: 0 14px; font-size: 14px;
   }
   .chip[aria-pressed="true"] { background: var(--vermillion-soft); border-color: var(--vermillion); color: var(--vermillion-deep); font-weight: 700; }
 
@@ -354,6 +356,34 @@
   .dots i.on { background: var(--indigo); }
 
   .photo-add[disabled] { opacity: 0.6; cursor: progress; }
+
+  /* ---------- 横につながった選択ボタン(1｜2｜3｜4｜5 / 甘口｜中間｜辛口) ---------- */
+  .seg { display: flex; height: 48px; border: 1px solid var(--line-strong); border-radius: 999px; overflow: hidden; background: var(--paper); flex: 1; min-width: 0; }
+  .seg button { flex: 1; min-width: 0; border: none; border-left: 1px solid var(--line-strong); background: transparent; color: var(--ink); font-size: 15px; font-weight: 500; padding: 0; }
+  .seg button:first-child { border-left: none; }
+  .seg button[aria-pressed="true"] { background: var(--indigo); color: var(--paper); font-weight: 700; }
+  .flabel .val { font-weight: 500; font-size: 12px; color: var(--ink-faint); margin-left: 8px; }
+  .flabel .val.on { color: var(--indigo); }
+
+  /* ---------- 料理提案 ---------- */
+  .pairing { background: var(--paper-elev); border-radius: 12px; padding: 14px; margin-bottom: 18px; }
+  .pairing h3 { font-size: 15px; margin-bottom: 6px; }
+  .pairing .cond { font-size: 13px; color: var(--indigo); font-weight: 700; line-height: 1.6; }
+  .pairing .basis { font-size: 12px; color: var(--ink-soft); margin: 4px 0 10px; line-height: 1.6; }
+  .pair-item { padding: 8px 0; border-top: 1px solid var(--line); }
+  .pair-item b { font-size: 15px; }
+  .pair-item p { margin: 3px 0 0 14px; font-size: 12.5px; color: var(--ink-soft); line-height: 1.6; }
+  .pair-item .tag { font-size: 11px; color: var(--vermillion); margin-left: 6px; font-weight: 500; }
+  .pairing .note { font-size: 11.5px; color: var(--ink-faint); margin-top: 8px; line-height: 1.6; }
+  .pairing .btn-outline { margin-top: 10px; }
+
+  /* ---------- 詳細の見出し下の酒蔵名・ヘッダーのメニュー ---------- */
+  .detail-sub { font-size: 14px; color: var(--ink-soft); margin: -10px 0 14px; }
+  .menu-btn { width: 36px; height: 36px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.24); background: rgba(255,255,255,0.14); color: #FBF7EC; display: flex; align-items: center; justify-content: center; }
+  .brand-right { display: flex; align-items: center; gap: 10px; }
+  .backup-sheet .sheet { max-width: 380px; border-radius: 20px; }
+  .backup-sheet p { font-size: 13px; color: var(--ink-soft); line-height: 1.7; margin: 8px 0 14px; }
+  .backup-sheet .btn + .btn { margin-top: 10px; }
 
   /* ---------- エラー表示(iOS Safari等で「何も起きない」状態を避けるため) ---------- */
   .error-banner {
@@ -386,7 +416,12 @@
       </svg>
       <div class="brand">
         <h1>酒ログ</h1>
-        <span class="count fvn" id="countLabel">0件の記録</span>
+        <div class="brand-right">
+          <span class="count fvn" id="countLabel">0件の記録</span>
+          <button type="button" class="menu-btn" id="backupMenuBtn" aria-label="データのバックアップ">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>
+          </button>
+        </div>
       </div>
       <div class="search-row">
         <div class="search-box">
@@ -449,6 +484,11 @@
       <input type="text" id="fName" placeholder="例: 獺祭 純米大吟醸">
     </div>
 
+    <div class="field">
+      <label class="flabel" for="fBrewery">酒蔵名</label>
+      <input type="text" id="fBrewery" placeholder="例: 旭酒造">
+    </div>
+
     <div class="two-col">
       <div class="field">
         <label class="flabel" for="fRegion">産地</label>
@@ -466,12 +506,14 @@
     </div>
 
     <div class="field">
-      <label class="flabel">味わい(辛口 〜 甘口)</label>
-      <div class="scale">
-        <div class="scale-top"><span></span><span class="scale-val fvn" id="tasteVal">3</span></div>
-        <input type="range" id="fTaste" min="1" max="5" value="3">
-        <div class="scale-labels"><span>辛口</span><span>甘口</span></div>
-      </div>
+      <label class="flabel" for="fDate">飲んだ日</label>
+      <input type="date" id="fDate">
+    </div>
+
+    <div class="field">
+      <label class="flabel">甘口・中間・辛口<span class="val" id="sweetDryVal">未設定</span></label>
+      <div class="seg" id="sweetDryBox" role="group" aria-label="甘口・中間・辛口"></div>
+      <p class="hint">飲んだ印象で選んでください。もう一度押すと未設定に戻ります。</p>
     </div>
 
     <div class="two-col">
@@ -500,26 +542,16 @@
       </div>
     </div>
 
-    <div class="two-col">
-      <div class="field">
-        <label class="flabel" for="fPrice">価格(円)</label>
-        <input type="number" id="fPrice" min="0" placeholder="任意">
-      </div>
-      <div class="field">
-        <label class="flabel" for="fDate">飲んだ日</label>
-        <input type="date" id="fDate">
-      </div>
-    </div>
-
     <div class="field">
       <label class="flabel">味わいノート</label>
+      <p class="hint" style="margin:-4px 0 8px;">甘み・旨み・酸味・苦み・香りを、どのくらい強く感じたか1(弱い)〜5(強い)で記録します。良い・悪いではありません。もう一度押すと未評価に戻ります。</p>
       <div class="levels" id="levelsBox"></div>
-      <p class="hint">甘み・旨み・酸味・苦み・香りを、どのくらい強く感じたか1(弱い)〜5(強い)で記録します。もう一度タップすると未評価に戻ります。</p>
     </div>
 
     <div class="field">
-      <label class="flabel">おすすめの飲み方</label>
-      <div class="chip-group" id="servingBox" role="group" aria-label="おすすめの飲み方"></div>
+      <label class="flabel">飲用温度<span class="val" id="servingVal">未設定</span></label>
+      <div class="chip-group" id="servingBox" role="group" aria-label="飲用温度"></div>
+      <p class="hint">温度は一般的な目安です。「冷や」は冷蔵した酒ではなく、燗をつけない常温の酒のことです。</p>
     </div>
 
     <div class="field">
@@ -532,6 +564,17 @@
         <span>お気に入りに登録</span>
         <label class="switch"><input type="checkbox" id="fFav"><span class="track"></span></label>
       </div>
+    </div>
+
+    <div class="field">
+      <label class="flabel">レア度<span class="val" id="rarityVal">未設定</span></label>
+      <div class="seg" id="rarityBox" role="group" aria-label="レア度"></div>
+      <div class="scale-labels"><span>よく見かける</span><span>激レア</span></div>
+    </div>
+
+    <div class="field">
+      <label class="flabel" for="fPrice">参考価格(円)</label>
+      <input type="number" id="fPrice" min="0" placeholder="任意">
     </div>
 
     <div class="btn-row" id="formBtnRow">
@@ -559,17 +602,15 @@
         </button>
       </div>
     </div>
+    <div class="detail-sub" id="detailBrewery" hidden></div>
     <div id="detailGalleryWrap"></div>
     <div class="detail-grid" id="detailGrid"></div>
-    <div class="detail-scale" id="detailTasteRow">
-      <div class="detail-item"><span class="k">味わい(辛口〜甘口)</span></div>
-      <div class="bar" id="detailTasteBar"><i></i></div>
-    </div>
     <div class="detail-scale" id="detailDrinkRow">
       <div class="detail-item"><span class="k">飲みやすさ</span></div>
       <div class="bar" id="detailDrinkBar"><i></i></div>
     </div>
     <div class="detail-levels" id="detailLevels"></div>
+    <div class="pairing" id="detailPairing"></div>
     <div class="field">
       <div class="detail-item"><span class="k">メモ</span></div>
       <div class="detail-notes" id="detailNotes">—</div>
@@ -601,6 +642,23 @@
       ライブラリから選択
     </button>
     <button class="btn btn-ghost photo-choice-cancel" id="choiceCancelBtn">キャンセル</button>
+  </div>
+</div>
+
+<!-- Backup -->
+<div class="overlay backup-sheet" id="backupOverlay" hidden>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="backupTitle">
+    <div class="sheet-head">
+      <h2 id="backupTitle">データのバックアップ</h2>
+      <button class="icon-btn" id="backupCloseBtn" aria-label="閉じる">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <p>記録はこのブラウザの中にだけ保存されています。ブラウザの履歴やデータを消すと記録も消えるため、ときどき「書き出し」で保存しておくと安心です。</p>
+    <button type="button" class="btn btn-primary" id="exportBtn">書き出し(ファイルに保存)</button>
+    <button type="button" class="btn btn-outline" id="importBtn">読み込み(ファイルから追加)</button>
+    <input type="file" id="importInput" accept="application/json,.json" hidden>
+    <p style="margin-top:14px;">読み込みは、今ある記録を消さずに追加します。同じ記録がすでにある場合は二重に追加しません。</p>
   </div>
 </div>
 
@@ -645,13 +703,45 @@
     ["sweetness", "甘み"], ["umami", "旨み"], ["sourness", "酸味"], ["bitterness", "苦み"], ["aroma", "香り"]
   ];
   const LEVEL_LABELS = { 1: "弱い", 2: "やや弱い", 3: "ふつう", 4: "やや強い", 5: "強い" };
+  /* 飲用温度: 名称と温度の目安を必ずセットで表示する(例: 熱燗（約50℃）) */
   const SERVING_STYLES = [
-    ["cold", "冷"], ["room", "常温・冷や"], ["nurukan", "ぬる燗"], ["atsukan", "熱燗"]
+    ["cold", "冷酒", "5〜15℃"], ["room", "常温（冷や）", "15〜25℃"], ["nurukan", "ぬる燗", "約40℃"],
+    ["jokan", "上燗", "約45℃"], ["atsukan", "熱燗", "約50℃"]
   ];
   const servingLabel = (code) => {
     const f = SERVING_STYLES.find(([c]) => c === code);
+    return f ? f[1] + "（" + f[2] + "）" : null;
+  };
+  /* 甘口・中間・辛口(未設定は null)。日本酒度などから自動では決めない */
+  const SWEET_DRY = [["sweet", "甘口"], ["medium", "中間"], ["dry", "辛口"]];
+  const sweetDryLabel = (code) => {
+    const f = SWEET_DRY.find(([c]) => c === code);
     return f ? f[1] : null;
   };
+  /* 旧スライダー(taste: 1=辛口〜5=甘口)しかない以前の記録は、4・5を甘口、1・2を辛口として表示する。
+     初期値のままの3は区別できないため未設定扱い。保存し直すまで元のデータは書き換えない。 */
+  function sweetDryOf(r) {
+    if (r.sweetDryClass !== undefined) return sweetDryLabel(r.sweetDryClass) ? r.sweetDryClass : null;
+    const t = Number(r.taste);
+    if (t === 4 || t === 5) return "sweet";
+    if (t === 1 || t === 2) return "dry";
+    return null;
+  }
+  const LEGACY_TASTE = { sweet: 5, medium: 3, dry: 1 };
+  const RARITY_LABELS = { 1: "よく見かける", 2: "たまに見かける", 3: "珍しい", 4: "かなりレア", 5: "激レア" };
+
+  /* 横につながった選択ボタン。選択中をもう一度押すと未選択(null)に戻る */
+  function renderSeg(box, options, current, onChange, ariaPrefix) {
+    box.innerHTML = options.map(([value, label]) =>
+      `<button type="button" data-v="${esc(value)}" aria-pressed="${current === value}" aria-label="${esc((ariaPrefix || "") + label)}">${esc(label)}</button>`
+    ).join("");
+    box.querySelectorAll("button").forEach((btn, i) => {
+      btn.addEventListener("click", () => {
+        const value = options[i][0];
+        onChange(current === value ? null : value);
+      });
+    });
+  }
 
   /* 日本酒度・酸度: 全角数字や各種マイナス記号も受け付け、小数1桁まで・範囲内のみ有効にする */
   function normalizeNum(text) {
@@ -857,16 +947,21 @@
 
     list.innerHTML = arr.map(r => {
       const thumb = r.photos && r.photos.length
-        ? `<img src="${r.photos[0]}" alt="">`
+        ? `<img src="${esc(r.photos[0])}" alt="">`
         : tokkuriSvg(22);
       const metaBits = [];
+      if (r.breweryName) metaBits.push(esc(r.breweryName));
       if (r.region) metaBits.push(esc(r.region));
       if (r.tastedDate) metaBits.push(esc(r.tastedDate));
-      if (r.price != null && r.price !== "") metaBits.push("¥" + Number(r.price).toLocaleString());
+      const tagBits = [];
+      const sd = sweetDryLabel(sweetDryOf(r));
+      if (sd) tagBits.push(sd);
+      const sv = servingLabel(r.servingStyle);
+      if (sv) tagBits.push(sv);
+      if (r.price != null && r.price !== "") tagBits.push("参考¥" + Number(r.price).toLocaleString());
       const favIcon = r.isFavorite ? heartSvg(true) : "";
-      const showBar = r.taste != null;
       return `
-        <button class="card" data-id="${r.id}">
+        <button class="card" data-id="${esc(r.id)}">
           <div class="thumb">${thumb}</div>
           <div class="body">
             <div class="row1">
@@ -874,7 +969,7 @@
               <span class="fav">${favIcon}</span>
             </div>
             <div class="meta">${metaBits.map(m => `<span>${m}</span>`).join("")}</div>
-            ${showBar ? `<div class="taste-bar"><i style="left:${tasteDotPercent(r.taste)}%"></i></div>` : ""}
+            ${tagBits.length ? `<div class="meta" style="color:var(--indigo);font-weight:500;">${tagBits.map(m => `<span>${esc(m)}</span>`).join("")}</div>` : ""}
           </div>
         </button>`;
     }).join("");
@@ -906,6 +1001,7 @@
     currentPhotos = [];
     $("#formTitle").textContent = "新しい記録";
     $("#fName").value = "";
+    $("#fBrewery").value = "";
     $("#fRegion").value = "";
     $("#fRice").value = "";
     $("#fAbv").value = "";
@@ -914,9 +1010,13 @@
     clearSpecErrors();
     currentLevels = {};
     currentServing = null;
+    currentSweetDry = null;
+    currentRarity = null;
+    currentLegacyTaste = null;
     renderLevels();
     renderServing();
-    $("#fTaste").value = 3; $("#tasteVal").textContent = "3";
+    renderSweetDry();
+    renderRarity();
     $("#fDrink").value = 3; $("#drinkVal").textContent = "3";
     $("#fPrice").value = "";
     $("#fDate").value = todayStr();
@@ -931,6 +1031,7 @@
     currentPhotos = (r.photos || []).slice();
     $("#formTitle").textContent = "記録を編集";
     $("#fName").value = r.name || "";
+    $("#fBrewery").value = r.breweryName || "";
     $("#fRegion").value = r.region || "";
     $("#fRice").value = r.riceVariety || "";
     $("#fAbv").value = r.abv != null ? r.abv : "";
@@ -942,10 +1043,13 @@
     currentLevels = {};
     TASTING_ITEMS.forEach(([key]) => { currentLevels[key] = r[key] != null ? r[key] : null; });
     currentServing = servingLabel(r.servingStyle) ? r.servingStyle : null;
+    currentSweetDry = sweetDryOf(r);
+    currentRarity = RARITY_LABELS[r.rarity] ? Number(r.rarity) : null;
+    currentLegacyTaste = r.taste != null ? r.taste : null;
     renderLevels();
     renderServing();
-    const t = r.taste != null ? r.taste : 3;
-    $("#fTaste").value = t; $("#tasteVal").textContent = t;
+    renderSweetDry();
+    renderRarity();
     const d = r.drinkability != null ? r.drinkability : 3;
     $("#fDrink").value = d; $("#drinkVal").textContent = d;
     $("#fPrice").value = r.price != null ? r.price : "";
@@ -960,7 +1064,7 @@
     const row = $("#photoRow");
     const thumbs = currentPhotos.map((src, i) => `
       <div class="photo-thumb">
-        <img src="${src}" alt="">
+        <img src="${esc(src)}" alt="">
         <button class="rm" data-i="${i}" aria-label="写真を削除">✕</button>
       </div>`).join("");
     const canAdd = currentPhotos.length < 6;
@@ -1002,36 +1106,36 @@
     else if (all.length > files.length) showToast("写真は最大6枚まで登録できます");
   }
 
-  /* ---------------- 味わいノート・おすすめの飲み方(フォーム) ---------------- */
+  /* ---------------- 味わいノート・飲用温度・甘辛・レア度(フォーム) ---------------- */
   let currentLevels = {};     // 例: { sweetness: 4, umami: null, ... }
   let currentServing = null;  // "cold" | "room" | "nurukan" | "atsukan" | null
+
+  let currentSweetDry = null;     // "sweet" | "medium" | "dry" | null
+  let currentRarity = null;       // 1〜5 | null
+  let currentLegacyTaste = null;  // 旧スライダーの値(保存時に消さないよう保持)
 
   function renderLevels() {
     $("#levelsBox").innerHTML = TASTING_ITEMS.map(([key, name]) => {
       const v = currentLevels[key] || null;
-      const btns = [1, 2, 3, 4, 5].map(n => `
-        <button type="button" class="level-btn${v && n <= v ? " filled" : ""}${v === n ? " current" : ""}"
-          data-key="${key}" data-n="${n}" aria-pressed="${v === n}" aria-label="${name} ${n}">${n}</button>`).join("");
       return `
         <div class="level-row">
           <div class="level-name"><b>${name}</b><small class="${v ? "on" : ""}">${v ? LEVEL_LABELS[v] : "未評価"}</small></div>
-          <div class="level-btns">${btns}</div>
+          <div class="seg" data-key="${key}" role="group" aria-label="${name}"></div>
         </div>`;
     }).join("");
-    $("#levelsBox").querySelectorAll(".level-btn").forEach(btn => {
-      btn.addEventListener("click", () => {
-        const key = btn.getAttribute("data-key");
-        const n = Number(btn.getAttribute("data-n"));
-        // 選択中の段階をもう一度押すと未評価に戻す
-        currentLevels[key] = currentLevels[key] === n ? null : n;
+    $("#levelsBox").querySelectorAll(".seg").forEach(box => {
+      const key = box.getAttribute("data-key");
+      const name = TASTING_ITEMS.find(([k]) => k === key)[1];
+      renderSeg(box, [1, 2, 3, 4, 5].map(n => [n, String(n)]), currentLevels[key] || null, (v) => {
+        currentLevels[key] = v;
         renderLevels();
-      });
+      }, name + " ");
     });
   }
 
   function renderServing() {
-    $("#servingBox").innerHTML = SERVING_STYLES.map(([code, label]) =>
-      `<button type="button" class="chip" data-code="${code}" aria-pressed="${currentServing === code}">${label}</button>`
+    $("#servingBox").innerHTML = SERVING_STYLES.map(([code]) =>
+      `<button type="button" class="chip" data-code="${code}" aria-pressed="${currentServing === code}">${servingLabel(code)}</button>`
     ).join("");
     $("#servingBox").querySelectorAll(".chip").forEach(btn => {
       btn.addEventListener("click", () => {
@@ -1040,6 +1144,23 @@
         renderServing();
       });
     });
+    setVal("#servingVal", servingLabel(currentServing));
+  }
+
+  function renderSweetDry() {
+    renderSeg($("#sweetDryBox"), SWEET_DRY, currentSweetDry, (v) => { currentSweetDry = v; renderSweetDry(); });
+    setVal("#sweetDryVal", sweetDryLabel(currentSweetDry));
+  }
+
+  function renderRarity() {
+    renderSeg($("#rarityBox"), [1, 2, 3, 4, 5].map(n => [n, String(n)]), currentRarity, (v) => { currentRarity = v; renderRarity(); }, "レア度 ");
+    setVal("#rarityVal", currentRarity ? RARITY_LABELS[currentRarity] : null);
+  }
+
+  function setVal(sel, text) {
+    const el = $(sel);
+    el.textContent = text || "未設定";
+    el.classList.toggle("on", !!text);
   }
 
   function validateSpecs(showAll) {
@@ -1083,7 +1204,6 @@
     e.target.value = "";
   });
 
-  $("#fTaste").addEventListener("input", (e) => $("#tasteVal").textContent = e.target.value);
   $("#fDrink").addEventListener("input", (e) => $("#drinkVal").textContent = e.target.value);
 
   function openForm(record) {
@@ -1106,6 +1226,7 @@
     const rec = {
       id: currentEditId || (Date.now() + "-" + Math.random().toString(36).slice(2, 8)),
       name: $("#fName").value.trim(),
+      breweryName: $("#fBrewery").value.trim() || null,
       region: $("#fRegion").value.trim(),
       riceVariety: $("#fRice").value.trim() || null,
       abv: $("#fAbv").value === "" ? null : Number($("#fAbv").value),
@@ -1117,7 +1238,10 @@
       bitterness: currentLevels.bitterness || null,
       aroma: currentLevels.aroma || null,
       servingStyle: currentServing,
-      taste: Number($("#fTaste").value),
+      sweetDryClass: currentSweetDry,
+      // 旧スライダーの項目: 分類が選ばれていれば互換の値、未設定なら以前の値をそのまま残す
+      taste: currentSweetDry ? LEGACY_TASTE[currentSweetDry] : (currentLegacyTaste != null ? currentLegacyTaste : 3),
+      rarity: currentRarity,
       drinkability: Number($("#fDrink").value),
       price: $("#fPrice").value === "" ? null : Number($("#fPrice").value),
       tastedDate: $("#fDate").value || todayStr(),
@@ -1150,12 +1274,14 @@
     if (!r) return;
     currentDetail = r;
     $("#detailName").textContent = r.name || "(銘柄名未入力)";
+    $("#detailBrewery").textContent = r.breweryName || "";
+    $("#detailBrewery").hidden = !r.breweryName;
     $("#detailFavBtn").innerHTML = heartSvg(!!r.isFavorite);
     $("#detailFavBtn").style.color = r.isFavorite ? "var(--vermillion)" : "var(--ink)";
 
     const galleryWrap = $("#detailGalleryWrap");
     if (r.photos && r.photos.length) {
-      galleryWrap.innerHTML = `<div class="detail-gallery">${r.photos.map((p, i) => `<img src="${p}" data-i="${i}" alt="">`).join("")}</div>`;
+      galleryWrap.innerHTML = `<div class="detail-gallery">${r.photos.map((p, i) => `<img src="${esc(p)}" data-i="${i}" alt="">`).join("")}</div>`;
       galleryWrap.querySelectorAll("img").forEach(img => {
         img.addEventListener("click", () => openLightbox(r.photos, Number(img.getAttribute("data-i"))));
       });
@@ -1166,12 +1292,14 @@
     const items = [
       ["産地", r.region],
       ["使用米", r.riceVariety],
+      ["甘口・中間・辛口", sweetDryLabel(sweetDryOf(r))],
+      ["飲用温度", servingLabel(r.servingStyle)],
       ["アルコール度数", r.abv != null ? r.abv + "%" : null],
       ["日本酒度", r.sakeMeterValue != null ? formatSmv(r.sakeMeterValue) : null],
       ["酸度", r.acidity != null ? plainNum(r.acidity) : null],
-      ["おすすめの飲み方", servingLabel(r.servingStyle)],
-      ["価格", r.price != null ? "¥" + Number(r.price).toLocaleString() : null],
       ["飲んだ日", r.tastedDate],
+      ["レア度", RARITY_LABELS[r.rarity] || null],
+      ["参考価格", r.price != null ? "¥" + Number(r.price).toLocaleString() : null],
     ];
     $("#detailGrid").innerHTML = items.map(([k, v]) => `
       <div class="detail-item">
@@ -1179,7 +1307,6 @@
         <div class="v ${v ? "" : "empty-v"} fvn">${v ? esc(v) : "未入力"}</div>
       </div>`).join("");
 
-    $("#detailTasteBar i").style.left = tasteDotPercent(r.taste) + "%";
     $("#detailDrinkBar i").style.left = tasteDotPercent(r.drinkability) + "%";
     $("#detailNotes").textContent = r.notes && r.notes.trim() ? r.notes : "メモはありません";
 
@@ -1192,8 +1319,98 @@
         return `<div class="detail-level"><span class="k">${name}</span>${val}</div>`;
       }).join("");
 
+    pairingPreviousIds = [];
+    renderPairing(r, false);
+
     $("#detailOverlay").hidden = false;
   }
+
+  /* ---------------- 料理提案 ----------------
+     事前に用意した料理マスタ(pairing_dishes.json)の組み合わせ条件だけで選ぶ。
+     Android版(PairingRecommender.kt)と同じ手順。変更するときは両方をそろえること。 */
+  const PAIRING_COUNT = 5;
+  let pairingDishes = null;       // 読み込み前は null、失敗時は []
+  let pairingPreviousIds = [];
+
+  async function loadPairingDishes() {
+    try {
+      const res = await fetch("pairing_dishes.json", { cache: "no-cache" });
+      if (!res.ok) throw new Error("HTTP " + res.status);
+      const json = await res.json();
+      pairingDishes = Array.isArray(json.dishes) ? json.dishes : [];
+    } catch (err) {
+      console.error("料理マスタの読み込みに失敗しました", err);
+      pairingDishes = [];
+    }
+    if (currentDetail) renderPairing(currentDetail, false);
+  }
+
+  function shuffle(arr) {
+    const a = arr.slice();
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+  function pickAvoiding(pool, previousIds, count) {
+    const fresh = shuffle(pool.filter(d => !previousIds.includes(d.id)));
+    if (fresh.length >= count) return fresh.slice(0, count);
+    const reused = shuffle(pool.filter(d => previousIds.includes(d.id)));
+    return fresh.concat(reused).slice(0, count);
+  }
+  function recommendDishes(dishes, sweetDry, temp, previousIds) {
+    const basis = sweetDry && temp ? "both" : sweetDry ? "sweetDry" : temp ? "temp" : "general";
+    const pool = dishes.filter(d =>
+      basis === "both" ? d.sweetDry.includes(sweetDry) && d.temperatures.includes(temp)
+        : basis === "sweetDry" ? d.sweetDry.includes(sweetDry)
+        : basis === "temp" ? d.temperatures.includes(temp)
+        : d.general);
+    const items = pickAvoiding(pool, previousIds, PAIRING_COUNT).map(dish => ({ dish, broadened: false }));
+    // 両方の条件に合う候補が足りないときだけ、片方の条件に合う料理で補う(架空の料理は作らない)
+    if (items.length < PAIRING_COUNT && basis === "both") {
+      const poolIds = pool.map(d => d.id);
+      const extra = dishes.filter(d => !poolIds.includes(d.id) && (d.sweetDry.includes(sweetDry) || d.temperatures.includes(temp)));
+      pickAvoiding(extra, previousIds, PAIRING_COUNT - items.length).forEach(dish => items.push({ dish, broadened: true }));
+    }
+    return { items, basis, candidateCount: pool.length };
+  }
+
+  function renderPairing(r, another) {
+    const box = $("#detailPairing");
+    const sweetDry = sweetDryOf(r);
+    const temp = servingLabel(r.servingStyle) ? r.servingStyle : null;
+    const cond = `甘口・中間・辛口: ${sweetDryLabel(sweetDry) || "未設定"} ／ 飲用温度: ${servingLabel(temp) || "未設定"}`;
+    if (pairingDishes === null) {
+      box.innerHTML = `<h3>この日本酒に合いそうな料理</h3><div class="cond">${esc(cond)}</div><p class="basis">料理の候補を読み込み中です…</p>`;
+      return;
+    }
+    if (pairingDishes.length === 0) {
+      box.innerHTML = `<h3>この日本酒に合いそうな料理</h3><div class="cond">${esc(cond)}</div><p class="basis">料理の候補を読み込めませんでした。通信状態を確認して、ページを再読み込みしてください。</p>`;
+      return;
+    }
+    const result = recommendDishes(pairingDishes, sweetDry, temp, another ? pairingPreviousIds : []);
+    pairingPreviousIds = result.items.map(it => it.dish.id);
+    const basisText = {
+      both: "甘口・中間・辛口と飲用温度の両方に合いそうな候補です。",
+      sweetDry: "飲用温度が未設定のため、甘口・中間・辛口をもとにした候補です。",
+      temp: "甘口・中間・辛口が未設定のため、飲用温度をもとにした候補です。",
+      general: "甘口・中間・辛口と飲用温度が未設定のため、日本酒に合わせやすい定番のおつまみ・料理を表示しています。",
+    }[result.basis];
+    box.innerHTML = `
+      <h3>この日本酒に合いそうな料理</h3>
+      <div class="cond">${esc(cond)}</div>
+      <p class="basis">${basisText}</p>
+      ${result.items.map(it => `
+        <div class="pair-item">
+          <b>・${esc(it.dish.name)}</b>${it.broadened ? `<span class="tag">条件を少し広げた候補</span>` : ""}
+          <p>${esc(it.dish.reason)}</p>
+        </div>`).join("")}
+      <button type="button" class="btn btn-outline" id="pairingAnotherBtn" ${result.candidateCount > PAIRING_COUNT ? "" : "disabled"}>別の料理を見る</button>
+      <p class="note">※ 組み合わせは一般的な目安です。好みに合わせてお試しください。</p>`;
+    $("#pairingAnotherBtn").addEventListener("click", () => renderPairing(r, true));
+  }
+
   function closeDetail() { $("#detailOverlay").hidden = true; currentDetail = null; }
 
   $("#detailCloseBtn").addEventListener("click", closeDetail);
@@ -1257,6 +1474,64 @@
     if (e.key === "ArrowRight") $("#lbNext").click();
   });
 
+  /* ---------------- バックアップ(書き出し・読み込み) ---------------- */
+  $("#backupMenuBtn").addEventListener("click", () => { $("#backupOverlay").hidden = false; });
+  $("#backupCloseBtn").addEventListener("click", () => { $("#backupOverlay").hidden = true; });
+  $("#backupOverlay").addEventListener("click", (e) => { if (e.target.id === "backupOverlay") $("#backupOverlay").hidden = true; });
+
+  $("#exportBtn").addEventListener("click", async () => {
+    try {
+      const all = await dbGetAll();
+      const data = { app: "sakelog-web", format: 1, exportedAt: new Date().toISOString(), records: all };
+      const blob = new Blob([JSON.stringify(data)], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "sakelog-backup-" + todayStr() + ".json";
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 10000);
+      showToast(all.length + "件の記録を書き出しました");
+    } catch (err) {
+      console.error("書き出しに失敗しました", err);
+      showToast("書き出しに失敗しました");
+    }
+  });
+
+  $("#importBtn").addEventListener("click", () => $("#importInput").click());
+  $("#importInput").addEventListener("change", async (e) => {
+    const file = e.target.files && e.target.files[0];
+    e.target.value = "";
+    if (!file) return;
+    try {
+      const data = JSON.parse(await file.text());
+      const list = Array.isArray(data) ? data : (data && Array.isArray(data.records) ? data.records : null);
+      if (!list) throw new Error("酒ログのバックアップファイルではありません");
+      const existing = new Set((await dbGetAll()).map(r => r.id));
+      let added = 0, skipped = 0, invalid = 0;
+      for (const raw of list) {
+        // 形式がおかしい記録は読み込まない。写真は画像データ(data:image/...)のみ受け付ける
+        if (!raw || typeof raw !== "object" || typeof raw.id !== "string" || !raw.id) { invalid++; continue; }
+        if (existing.has(raw.id)) { skipped++; continue; }
+        const rec = Object.assign({}, raw, {
+          photos: Array.isArray(raw.photos) ? raw.photos.filter(p => typeof p === "string" && p.startsWith("data:image/")) : []
+        });
+        await dbPut(rec);
+        existing.add(rec.id);
+        added++;
+      }
+      await reload();
+      showToast(`${added}件を追加しました` + (skipped ? `(${skipped}件はすでにあるため追加しませんでした)` : "") + (invalid ? `(${invalid}件は形式が正しくないため読み込みませんでした)` : ""));
+    } catch (err) {
+      console.error("読み込みに失敗しました", err);
+      const reason = err instanceof SyntaxError
+        ? "ファイルの形式が正しくありません。酒ログで書き出したファイルを選んでください"
+        : ((err && err.message) || "ファイルを確認してください");
+      showToast("読み込みに失敗しました: " + reason);
+    }
+  });
+
   /* ---------------- Search / sort / filter ---------------- */
   $("#searchInput").addEventListener("input", renderList);
   $("#sortSel").addEventListener("change", renderList);
@@ -1275,6 +1550,7 @@
 
   function boot() {
     reload().catch(() => { records = []; renderList(); showToast("データの読み込みに失敗しました"); });
+    loadPairingDishes();
   }
 
   if (window.claude && window.claude.hot) {

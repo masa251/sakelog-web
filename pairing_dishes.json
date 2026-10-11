@@ -1,0 +1,1524 @@
+{
+ "version": 1,
+ "note": "酒ログの料理ペアリング用マスタ。Android版(assets)とWeb版(sakelog-web)で同じ内容を使う。",
+ "categories": {
+  "seafood_raw": "魚介（生・冷菜）",
+  "seafood_cooked": "魚介（焼き・揚げ・煮）",
+  "meat": "肉",
+  "tofu_egg": "豆腐・卵",
+  "vegetable": "野菜・煮物",
+  "nabe": "鍋・汁物",
+  "chinmi": "珍味・おつまみ"
+ },
+ "dishes": [
+  {
+   "id": "d001",
+   "name": "刺身",
+   "category": "seafood_raw",
+   "sweetDry": [
+    "sweet",
+    "medium",
+    "dry"
+   ],
+   "temperatures": [
+    "cold"
+   ],
+   "general": true,
+   "reason": "魚の繊細な味を邪魔しにくく、冷やした酒と合わせやすい定番です。"
+  },
+  {
+   "id": "d002",
+   "name": "寿司",
+   "category": "seafood_raw",
+   "sweetDry": [
+    "medium",
+    "dry"
+   ],
+   "temperatures": [
+    "cold"
+   ],
+   "general": false,
+   "reason": "酢飯の酸味と魚の旨みを、すっきりした酒が引き立てやすい候補です。"
+  },
+  {
+   "id": "d003",
+   "name": "白身魚のカルパッチョ",
+   "category": "seafood_raw",
+   "sweetDry": [
+    "sweet",
+    "medium",
+    "dry"
+   ],
+   "temperatures": [
+    "cold"
+   ],
+   "general": false,
+   "reason": "オリーブオイルと柑橘の軽さが、冷やした酒の香りと合わせやすいです。"
+  },
+  {
+   "id": "d004",
+   "name": "カツオのたたき",
+   "category": "seafood_raw",
+   "sweetDry": [
+    "medium",
+    "dry"
+   ],
+   "temperatures": [
+    "cold",
+    "room"
+   ],
+   "general": false,
+   "reason": "薬味とポン酢の香りに、キレのある酒が合わせやすい候補です。"
+  },
+  {
+   "id": "d005",
+   "name": "しめ鯖",
+   "category": "seafood_raw",
+   "sweetDry": [
+    "dry"
+   ],
+   "temperatures": [
+    "cold"
+   ],
+   "general": false,
+   "reason": "酢で締めた脂を、辛口の酒がさっぱり流してくれやすいです。"
+  },
+  {
+   "id": "d006",
+   "name": "なめろう",
+   "category": "seafood_raw",
+   "sweetDry": [
+    "dry"
+   ],
+   "temperatures": [
+    "cold",
+    "room"
+   ],
+   "general": false,
+   "reason": "味噌と薬味の濃い味を、辛口の酒が受け止めやすい候補です。"
+  },
+  {
+   "id": "d007",
+   "name": "生牡蠣（ポン酢）",
+   "category": "seafood_raw",
+   "sweetDry": [
+    "dry"
+   ],
+   "temperatures": [
+    "cold"
+   ],
+   "general": false,
+   "reason": "磯の香りと酸味に、冷えた辛口の酒が合わせやすいです。"
+  },
+  {
+   "id": "d008",
+   "name": "白子ポン酢",
+   "category": "seafood_raw",
+   "sweetDry": [
+    "medium",
+    "dry"
+   ],
+   "temperatures": [
+    "cold",
+    "room"
+   ],
+   "general": false,
+   "reason": "とろりとしたコクを、酸味のある酒が引き締めやすい候補です。"
+  },
+  {
+   "id": "d009",
+   "name": "あん肝",
+   "category": "seafood_raw",
+   "sweetDry": [
+    "sweet",
+    "medium"
+   ],
+   "temperatures": [
+    "cold",
+    "room"
+   ],
+   "general": false,
+   "reason": "濃厚な脂のコクに、旨みのある酒を合わせやすい珍味です。"
+  },
+  {
+   "id": "d010",
+   "name": "スモークサーモン",
+   "category": "seafood_raw",
+   "sweetDry": [
+    "sweet",
+    "medium",
+    "dry"
+   ],
+   "temperatures": [
+    "cold"
+   ],
+   "general": false,
+   "reason": "燻製の香りと塩気が、冷やした酒の香りと合わせやすいです。"
+  },
+  {
+   "id": "d011",
+   "name": "しらすおろし",
+   "category": "seafood_raw",
+   "sweetDry": [
+    "medium",
+    "dry"
+   ],
+   "temperatures": [
+    "cold",
+    "room"
+   ],
+   "general": false,
+   "reason": "大根おろしの軽さで、口直しにもなりやすい一品です。"
+  },
+  {
+   "id": "d012",
+   "name": "たこ酢",
+   "category": "seafood_raw",
+   "sweetDry": [
+    "dry"
+   ],
+   "temperatures": [
+    "cold"
+   ],
+   "general": false,
+   "reason": "酢の物のさっぱり感が、辛口のキレと合わせやすい候補です。"
+  },
+  {
+   "id": "d013",
+   "name": "かに酢",
+   "category": "seafood_raw",
+   "sweetDry": [
+    "sweet"
+   ],
+   "temperatures": [
+    "cold"
+   ],
+   "general": false,
+   "reason": "かにの甘みが、甘口の酒のやさしさと重なりやすいです。"
+  },
+  {
+   "id": "d014",
+   "name": "もずく酢",
+   "category": "seafood_raw",
+   "sweetDry": [
+    "medium",
+    "dry"
+   ],
+   "temperatures": [
+    "cold"
+   ],
+   "general": false,
+   "reason": "口の中をさっぱりさせ、次の一杯を進めやすい小鉢です。"
+  },
+  {
+   "id": "d015",
+   "name": "ホタルイカの沖漬け",
+   "category": "seafood_raw",
+   "sweetDry": [
+    "medium",
+    "dry"
+   ],
+   "temperatures": [
+    "cold"
+   ],
+   "general": false,
+   "reason": "醤油漬けのワタのコクが、冷やした酒と合わせやすい珍味です。"
+  },
+  {
+   "id": "d016",
+   "name": "海鮮サラダ",
+   "category": "seafood_raw",
+   "sweetDry": [
+    "medium",
+    "dry"
+   ],
+   "temperatures": [
+    "cold"
+   ],
+   "general": false,
+   "reason": "魚介と野菜の軽い味で、気軽に合わせやすい候補です。"
+  },
+  {
+   "id": "d017",
+   "name": "焼き魚",
+   "category": "seafood_cooked",
+   "sweetDry": [
+    "medium",
+    "dry"
+   ],
+   "temperatures": [
+    "room",
+    "jokan"
+   ],
+   "general": true,
+   "reason": "塩焼きの香ばしさと脂を、常温〜燗の酒が受け止めやすい定番です。"
+  },
+  {
+   "id": "d018",
+   "name": "鮭の西京焼き",
+   "category": "seafood_cooked",
+   "sweetDry": [
+    "sweet",
+    "medium"
+   ],
+   "temperatures": [
+    "room",
+    "nurukan"
+   ],
+   "general": false,
+   "reason": "白味噌の甘い香りが、やわらかな酒と合わせやすいです。"
+  },
+  {
+   "id": "d019",
+   "name": "ぶりの照り焼き",
+   "category": "seafood_cooked",
+   "sweetDry": [
+    "sweet",
+    "medium"
+   ],
+   "temperatures": [
+    "nurukan",
+    "jokan"
+   ],
+   "general": false,
+   "reason": "甘辛いたれと脂に、温めた酒の旨みが合わせやすい候補です。"
+  },
+  {
+   "id": "d020",
+   "name": "ししゃも焼き",
+   "category": "seafood_cooked",
+   "sweetDry": [
+    "dry"
+   ],
+   "temperatures": [
+    "room",
+    "nurukan"
+   ],
+   "general": false,
+   "reason": "ほろ苦い卵の味わいを、キレのある酒が引き立てやすいです。"
+  },
+  {
+   "id": "d021",
+   "name": "いかの一夜干し",
+   "category": "seafood_cooked",
+   "sweetDry": [
+    "medium",
+    "dry"
+   ],
+   "temperatures": [
+    "room",
+    "nurukan"
+   ],
+   "general": false,
+   "reason": "噛むほど出る旨みが、常温やぬる燗と合わせやすい候補です。"
+  },
+  {
+   "id": "d022",
+   "name": "あじフライ",
+   "category": "seafood_cooked",
+   "sweetDry": [
+    "medium",
+    "dry"
+   ],
+   "temperatures": [
+    "room"
+   ],
+   "general": false,
+   "reason": "揚げ物の油を、すっきりした酒が流してくれやすいです。"
+  },
+  {
+   "id": "d023",
+   "name": "カキフライ",
+   "category": "seafood_cooked",
+   "sweetDry": [
+    "medium",
+    "dry"
+   ],
+   "temperatures": [
+    "room",
+    "nurukan"
+   ],
+   "general": false,
+   "reason": "衣の香ばしさと牡蠣のコクに、旨みのある酒が合わせやすいです。"
+  },
+  {
+   "id": "d024",
+   "name": "天ぷら",
+   "category": "seafood_cooked",
+   "sweetDry": [
+    "dry"
+   ],
+   "temperatures": [
+    "cold"
+   ],
+   "general": true,
+   "reason": "軽い衣の油を、冷えた辛口がさっぱりさせやすい候補です。"
+  },
+  {
+   "id": "d025",
+   "name": "ほたてのバター焼き",
+   "category": "seafood_cooked",
+   "sweetDry": [
+    "sweet",
+    "medium"
+   ],
+   "temperatures": [
+    "room",
+    "nurukan"
+   ],
+   "general": false,
+   "reason": "バターの香りと貝の甘みに、まろやかな酒が合わせやすいです。"
+  },
+  {
+   "id": "d026",
+   "name": "あさりの酒蒸し",
+   "category": "seafood_cooked",
+   "sweetDry": [
+    "medium",
+    "dry"
+   ],
+   "temperatures": [
+    "room"
+   ],
+   "general": false,
+   "reason": "酒と貝のだしで、同じ方向の味わいがなじみやすい候補です。"
+  },
+  {
+   "id": "d027",
+   "name": "かに味噌の甲羅焼き",
+   "category": "seafood_cooked",
+   "sweetDry": [
+    "medium",
+    "dry"
+   ],
+   "temperatures": [
+    "nurukan",
+    "jokan"
+   ],
+   "general": false,
+   "reason": "濃厚な味噌の旨みを、温めた酒がふくらませやすい珍味です。"
+  },
+  {
+   "id": "d028",
+   "name": "ぶり大根",
+   "category": "seafood_cooked",
+   "sweetDry": [
+    "medium",
+    "dry"
+   ],
+   "temperatures": [
+    "nurukan",
+    "jokan",
+    "atsukan"
+   ],
+   "general": false,
+   "reason": "煮汁がしみた大根とぶりの脂に、燗の酒が合わせやすい定番です。"
+  },
+  {
+   "id": "d029",
+   "name": "鯖の味噌煮",
+   "category": "seafood_cooked",
+   "sweetDry": [
+    "medium",
+    "dry"
+   ],
+   "temperatures": [
+    "atsukan"
+   ],
+   "general": false,
+   "reason": "味噌のコクと鯖の脂を、熱めの燗がすっきりさせやすいです。"
+  },
+  {
+   "id": "d030",
+   "name": "煮魚（甘辛煮）",
+   "category": "seafood_cooked",
+   "sweetDry": [
+    "sweet"
+   ],
+   "temperatures": [
+    "nurukan",
+    "atsukan"
+   ],
+   "general": false,
+   "reason": "甘辛い煮汁に、甘口の酒のやさしさを合わせやすい候補です。"
+  },
+  {
+   "id": "d031",
+   "name": "うなぎの蒲焼き",
+   "category": "seafood_cooked",
+   "sweetDry": [
+    "sweet",
+    "medium"
+   ],
+   "temperatures": [
+    "nurukan",
+    "jokan"
+   ],
+   "general": false,
+   "reason": "濃いたれと香ばしさに、旨みのある燗酒が合わせやすいです。"
+  },
+  {
+   "id": "d032",
+   "name": "鮭のちゃんちゃん焼き",
+   "category": "seafood_cooked",
+   "sweetDry": [
+    "sweet",
+    "medium"
+   ],
+   "temperatures": [
+    "jokan",
+    "atsukan"
+   ],
+   "general": false,
+   "reason": "味噌バターの濃い味が、温めた酒のふくらみと合わせやすいです。"
+  },
+  {
+   "id": "d033",
+   "name": "さつま揚げ",
+   "category": "seafood_cooked",
+   "sweetDry": [
+    "medium",
+    "dry"
+   ],
+   "temperatures": [
+    "jokan"
+   ],
+   "general": false,
+   "reason": "すり身の甘みが、上燗の酒と合わせやすい一品です。"
+  },
+  {
+   "id": "d034",
+   "name": "板わさ",
+   "category": "seafood_cooked",
+   "sweetDry": [
+    "medium",
+    "dry"
+   ],
+   "temperatures": [
+    "room"
+   ],
+   "general": true,
+   "reason": "かまぼこのやさしい味と山葵で、酒の味を確かめやすいおつまみです。"
+  },
+  {
+   "id": "d035",
+   "name": "焼き鳥（塩）",
+   "category": "meat",
+   "sweetDry": [
+    "medium",
+    "dry"
+   ],
+   "temperatures": [
+    "nurukan",
+    "atsukan"
+   ],
+   "general": true,
+   "reason": "素材の味を生かした塩味が、燗の酒と合わせやすい候補です。"
+  },
+  {
+   "id": "d036",
+   "name": "焼き鳥（たれ）",
+   "category": "meat",
+   "sweetDry": [
+    "sweet",
+    "medium"
+   ],
+   "temperatures": [
+    "nurukan",
+    "jokan"
+   ],
+   "general": false,
+   "reason": "甘辛いたれに、旨みのある燗酒が合わせやすいです。"
+  },
+  {
+   "id": "d037",
+   "name": "鶏つくね",
+   "category": "meat",
+   "sweetDry": [
+    "medium",
+    "dry"
+   ],
+   "temperatures": [
+    "nurukan"
+   ],
+   "general": false,
+   "reason": "肉の旨みとやわらかさが、ぬる燗と合わせやすい候補です。"
+  },
+  {
+   "id": "d038",
+   "name": "手羽先の塩焼き",
+   "category": "meat",
+   "sweetDry": [
+    "dry"
+   ],
+   "temperatures": [
+    "room",
+    "nurukan"
+   ],
+   "general": false,
+   "reason": "皮の香ばしさと塩気を、キレのある酒が流してくれやすいです。"
+  },
+  {
+   "id": "d039",
+   "name": "鶏の唐揚げ",
+   "category": "meat",
+   "sweetDry": [
+    "medium",
+    "dry"
+   ],
+   "temperatures": [
+    "cold",
+    "room"
+   ],
+   "general": false,
+   "reason": "揚げ物の油と下味を、すっきりした酒がさっぱりさせやすいです。"
+  },
+  {
+   "id": "d040",
+   "name": "鶏皮ポン酢",
+   "category": "meat",
+   "sweetDry": [
+    "dry"
+   ],
+   "temperatures": [
+    "cold",
+    "room"
+   ],
+   "general": false,
+   "reason": "ポン酢の酸味で脂が軽くなり、辛口と合わせやすい候補です。"
+  },
+  {
+   "id": "d041",
+   "name": "ささみの梅しそ和え",
+   "category": "meat",
+   "sweetDry": [
+    "medium",
+    "dry"
+   ],
+   "temperatures": [
+    "cold"
+   ],
+   "general": false,
+   "reason": "梅の酸味としその香りが、冷やした酒と合わせやすい小鉢です。"
+  },
+  {
+   "id": "d042",
+   "name": "鶏の照り焼き",
+   "category": "meat",
+   "sweetDry": [
+    "sweet",
+    "medium",
+    "dry"
+   ],
+   "temperatures": [
+    "nurukan",
+    "jokan"
+   ],
+   "general": false,
+   "reason": "照りの甘辛さに、温めた酒の旨みがなじみやすいです。"
+  },
+  {
+   "id": "d043",
+   "name": "鶏鍋（水炊き）",
+   "category": "meat",
+   "sweetDry": [
+    "sweet",
+    "medium"
+   ],
+   "temperatures": [
+    "atsukan"
+   ],
+   "general": false,
+   "reason": "鶏だしのやさしい味が、熱燗と合わせやすい鍋です。"
+  },
+  {
+   "id": "d044",
+   "name": "鶏レバーの甘辛煮",
+   "category": "meat",
+   "sweetDry": [
+    "sweet"
+   ],
+   "temperatures": [
+    "nurukan",
+    "jokan"
+   ],
+   "general": false,
+   "reason": "レバーのコクと甘辛さに、甘口の燗酒が合わせやすい候補です。"
+  },
+  {
+   "id": "d045",
+   "name": "豚の生姜焼き",
+   "category": "meat",
+   "sweetDry": [
+    "sweet",
+    "medium"
+   ],
+   "temperatures": [
+    "room",
+    "nurukan"
+   ],
+   "general": false,
+   "reason": "生姜の香りと甘辛いたれが、常温〜ぬる燗と合わせやすいです。"
+  },
+  {
+   "id": "d046",
+   "name": "豚しゃぶ",
+   "category": "meat",
+   "sweetDry": [
+    "medium",
+    "dry"
+   ],
+   "temperatures": [
+    "nurukan",
+    "jokan"
+   ],
+   "general": false,
+   "reason": "脂が落ちた軽い味わいで、燗の酒とも合わせやすい候補です。"
+  },
+  {
+   "id": "d047",
+   "name": "豚の角煮",
+   "category": "meat",
+   "sweetDry": [
+    "sweet"
+   ],
+   "temperatures": [
+    "jokan",
+    "atsukan"
+   ],
+   "general": false,
+   "reason": "とろける脂と甘い煮汁に、甘口の燗酒が合わせやすいです。"
+  },
+  {
+   "id": "d048",
+   "name": "もつ煮込み",
+   "category": "meat",
+   "sweetDry": [
+    "dry"
+   ],
+   "temperatures": [
+    "atsukan"
+   ],
+   "general": false,
+   "reason": "味噌の濃いコクを、熱燗の辛口がすっきりさせやすい候補です。"
+  },
+  {
+   "id": "d049",
+   "name": "牛すじ煮込み",
+   "category": "meat",
+   "sweetDry": [
+    "sweet",
+    "medium",
+    "dry"
+   ],
+   "temperatures": [
+    "jokan"
+   ],
+   "general": false,
+   "reason": "煮込んだ旨みに、上燗の酒が合わせやすいです。"
+  },
+  {
+   "id": "d050",
+   "name": "牛タン塩焼き",
+   "category": "meat",
+   "sweetDry": [
+    "dry"
+   ],
+   "temperatures": [
+    "room",
+    "nurukan",
+    "jokan"
+   ],
+   "general": false,
+   "reason": "歯ごたえと塩気を、キレのある酒が引き締めやすい候補です。"
+  },
+  {
+   "id": "d051",
+   "name": "ローストビーフ",
+   "category": "meat",
+   "sweetDry": [
+    "medium",
+    "dry"
+   ],
+   "temperatures": [
+    "cold",
+    "room"
+   ],
+   "general": false,
+   "reason": "赤身の旨みが、冷や〜常温の酒と合わせやすいです。"
+  },
+  {
+   "id": "d052",
+   "name": "鴨ロース",
+   "category": "meat",
+   "sweetDry": [
+    "sweet",
+    "medium"
+   ],
+   "temperatures": [
+    "room",
+    "nurukan"
+   ],
+   "general": false,
+   "reason": "鴨の香りと脂の甘みが、旨みのある酒と合わせやすい候補です。"
+  },
+  {
+   "id": "d053",
+   "name": "鴨鍋",
+   "category": "meat",
+   "sweetDry": [
+    "medium",
+    "dry"
+   ],
+   "temperatures": [
+    "jokan",
+    "atsukan"
+   ],
+   "general": false,
+   "reason": "鴨のだしが出た鍋に、熱めの燗が合わせやすいです。"
+  },
+  {
+   "id": "d054",
+   "name": "すき焼き",
+   "category": "meat",
+   "sweetDry": [
+    "sweet"
+   ],
+   "temperatures": [
+    "nurukan",
+    "jokan",
+    "atsukan"
+   ],
+   "general": false,
+   "reason": "甘辛い割下と牛肉に、甘口の燗酒がなじみやすい定番です。"
+  },
+  {
+   "id": "d055",
+   "name": "肉豆腐",
+   "category": "meat",
+   "sweetDry": [
+    "sweet",
+    "medium"
+   ],
+   "temperatures": [
+    "nurukan",
+    "jokan",
+    "atsukan"
+   ],
+   "general": false,
+   "reason": "煮汁を吸った豆腐と肉に、燗の酒が合わせやすい候補です。"
+  },
+  {
+   "id": "d056",
+   "name": "肉じゃが",
+   "category": "meat",
+   "sweetDry": [
+    "sweet",
+    "medium",
+    "dry"
+   ],
+   "temperatures": [
+    "room",
+    "nurukan",
+    "jokan",
+    "atsukan"
+   ],
+   "general": true,
+   "reason": "家庭的な甘辛い煮物で、温度を問わず合わせやすいです。"
+  },
+  {
+   "id": "d057",
+   "name": "焼き餃子",
+   "category": "meat",
+   "sweetDry": [
+    "medium",
+    "dry"
+   ],
+   "temperatures": [
+    "room",
+    "nurukan"
+   ],
+   "general": false,
+   "reason": "皮の香ばしさと肉汁を、すっきりした酒が流してくれやすいです。"
+  },
+  {
+   "id": "d058",
+   "name": "串カツ",
+   "category": "meat",
+   "sweetDry": [
+    "medium",
+    "dry"
+   ],
+   "temperatures": [
+    "room",
+    "nurukan"
+   ],
+   "general": false,
+   "reason": "ソースと揚げ物の油に、キレのある酒が合わせやすい居酒屋の定番です。"
+  },
+  {
+   "id": "d059",
+   "name": "生ハム",
+   "category": "meat",
+   "sweetDry": [
+    "sweet"
+   ],
+   "temperatures": [
+    "cold"
+   ],
+   "general": false,
+   "reason": "塩気と脂の甘みが、甘口の酒の香りと合わせやすいです。"
+  },
+  {
+   "id": "d060",
+   "name": "冷奴",
+   "category": "tofu_egg",
+   "sweetDry": [
+    "medium",
+    "dry"
+   ],
+   "temperatures": [
+    "cold",
+    "room"
+   ],
+   "general": true,
+   "reason": "豆腐の淡い味で、酒そのものの味わいを楽しみやすい定番です。"
+  },
+  {
+   "id": "d061",
+   "name": "湯豆腐",
+   "category": "tofu_egg",
+   "sweetDry": [
+    "sweet",
+    "medium",
+    "dry"
+   ],
+   "temperatures": [
+    "room",
+    "atsukan"
+   ],
+   "general": true,
+   "reason": "昆布だしのやさしい味が、燗の酒と合わせやすい候補です。"
+  },
+  {
+   "id": "d062",
+   "name": "揚げ出し豆腐",
+   "category": "tofu_egg",
+   "sweetDry": [
+    "sweet",
+    "medium",
+    "dry"
+   ],
+   "temperatures": [
+    "nurukan"
+   ],
+   "general": true,
+   "reason": "だしと衣の香ばしさが、ぬる燗と合わせやすいです。"
+  },
+  {
+   "id": "d063",
+   "name": "厚揚げ焼き",
+   "category": "tofu_egg",
+   "sweetDry": [
+    "dry"
+   ],
+   "temperatures": [
+    "room"
+   ],
+   "general": false,
+   "reason": "香ばしい厚揚げと生姜醤油に、辛口が合わせやすい候補です。"
+  },
+  {
+   "id": "d064",
+   "name": "厚揚げの煮物",
+   "category": "tofu_egg",
+   "sweetDry": [
+    "medium",
+    "dry"
+   ],
+   "temperatures": [
+    "jokan",
+    "atsukan"
+   ],
+   "general": false,
+   "reason": "だしを吸った厚揚げが、燗の酒のふくらみと合わせやすいです。"
+  },
+  {
+   "id": "d065",
+   "name": "ごま豆腐",
+   "category": "tofu_egg",
+   "sweetDry": [
+    "sweet",
+    "medium"
+   ],
+   "temperatures": [
+    "cold",
+    "room"
+   ],
+   "general": false,
+   "reason": "ごまのコクとなめらかさが、やわらかな酒と合わせやすい候補です。"
+  },
+  {
+   "id": "d066",
+   "name": "湯葉刺し",
+   "category": "tofu_egg",
+   "sweetDry": [
+    "sweet",
+    "medium"
+   ],
+   "temperatures": [
+    "cold"
+   ],
+   "general": false,
+   "reason": "大豆のやさしい甘みが、穏やかな香りの酒と合わせやすいです。"
+  },
+  {
+   "id": "d067",
+   "name": "白和え",
+   "category": "tofu_egg",
+   "sweetDry": [
+    "sweet",
+    "medium"
+   ],
+   "temperatures": [
+    "room"
+   ],
+   "general": false,
+   "reason": "豆腐と胡麻のやさしい甘みが、常温の酒と合わせやすい小鉢です。"
+  },
+  {
+   "id": "d068",
+   "name": "だし巻き卵",
+   "category": "tofu_egg",
+   "sweetDry": [
+    "sweet",
+    "medium",
+    "dry"
+   ],
+   "temperatures": [
+    "cold",
+    "room",
+    "nurukan"
+   ],
+   "general": true,
+   "reason": "だしの旨みと卵のやさしさで、幅広い酒と合わせやすい定番です。"
+  },
+  {
+   "id": "d069",
+   "name": "茶碗蒸し",
+   "category": "tofu_egg",
+   "sweetDry": [
+    "sweet",
+    "medium"
+   ],
+   "temperatures": [
+    "cold",
+    "room",
+    "atsukan"
+   ],
+   "general": false,
+   "reason": "だしの香りとなめらかさが、やさしい酒と合わせやすいです。"
+  },
+  {
+   "id": "d070",
+   "name": "枝豆",
+   "category": "vegetable",
+   "sweetDry": [
+    "sweet",
+    "medium",
+    "dry"
+   ],
+   "temperatures": [
+    "cold"
+   ],
+   "general": true,
+   "reason": "塩気と豆の甘みで、最初の一杯に合わせやすい定番です。"
+  },
+  {
+   "id": "d071",
+   "name": "冷やしトマト",
+   "category": "vegetable",
+   "sweetDry": [
+    "sweet",
+    "medium",
+    "dry"
+   ],
+   "temperatures": [
+    "cold"
+   ],
+   "general": false,
+   "reason": "トマトの酸味と甘みが、冷やした酒と合わせやすい候補です。"
+  },
+  {
+   "id": "d072",
+   "name": "ほうれん草のおひたし",
+   "category": "vegetable",
+   "sweetDry": [
+    "medium",
+    "dry"
+   ],
+   "temperatures": [
+    "cold",
+    "room"
+   ],
+   "general": false,
+   "reason": "だしと青菜の軽い味わいで、口直しにしやすい小鉢です。"
+  },
+  {
+   "id": "d073",
+   "name": "なすの揚げびたし",
+   "category": "vegetable",
+   "sweetDry": [
+    "sweet",
+    "medium"
+   ],
+   "temperatures": [
+    "cold",
+    "room"
+   ],
+   "general": false,
+   "reason": "だしを含んだなすのとろみが、やさしい酒と合わせやすいです。"
+  },
+  {
+   "id": "d074",
+   "name": "焼きなす",
+   "category": "vegetable",
+   "sweetDry": [
+    "medium"
+   ],
+   "temperatures": [
+    "nurukan"
+   ],
+   "general": false,
+   "reason": "とろりとした甘みに、ぬる燗が合わせやすい候補です。"
+  },
+  {
+   "id": "d075",
+   "name": "長芋の短冊",
+   "category": "vegetable",
+   "sweetDry": [
+    "medium",
+    "dry"
+   ],
+   "temperatures": [
+    "cold"
+   ],
+   "general": false,
+   "reason": "シャキシャキした食感と軽さで、冷やした酒と合わせやすいです。"
+  },
+  {
+   "id": "d076",
+   "name": "焼きしいたけ",
+   "category": "vegetable",
+   "sweetDry": [
+    "medium",
+    "dry"
+   ],
+   "temperatures": [
+    "room"
+   ],
+   "general": false,
+   "reason": "きのこの香りと旨みが、常温の酒と合わせやすい候補です。"
+  },
+  {
+   "id": "d077",
+   "name": "きのこのホイル焼き",
+   "category": "vegetable",
+   "sweetDry": [
+    "medium",
+    "dry"
+   ],
+   "temperatures": [
+    "nurukan",
+    "jokan"
+   ],
+   "general": false,
+   "reason": "きのこの旨みが詰まった汁に、温めた酒が合わせやすいです。"
+  },
+  {
+   "id": "d078",
+   "name": "きんぴらごぼう",
+   "category": "vegetable",
+   "sweetDry": [
+    "dry"
+   ],
+   "temperatures": [
+    "room"
+   ],
+   "general": false,
+   "reason": "ごぼうの香りと甘辛い味に、キレのある酒が合わせやすい小鉢です。"
+  },
+  {
+   "id": "d079",
+   "name": "たけのこの土佐煮",
+   "category": "vegetable",
+   "sweetDry": [
+    "medium",
+    "dry"
+   ],
+   "temperatures": [
+    "room",
+    "nurukan"
+   ],
+   "general": false,
+   "reason": "かつお節の旨みとたけのこの香りが、酒と合わせやすい候補です。"
+  },
+  {
+   "id": "d080",
+   "name": "里芋の煮物",
+   "category": "vegetable",
+   "sweetDry": [
+    "sweet",
+    "medium",
+    "dry"
+   ],
+   "temperatures": [
+    "room",
+    "nurukan",
+    "jokan"
+   ],
+   "general": false,
+   "reason": "ねっとりした食感とだしの味が、燗の酒と合わせやすいです。"
+  },
+  {
+   "id": "d081",
+   "name": "かぼちゃの煮物",
+   "category": "vegetable",
+   "sweetDry": [
+    "sweet"
+   ],
+   "temperatures": [
+    "room",
+    "nurukan",
+    "jokan",
+    "atsukan"
+   ],
+   "general": false,
+   "reason": "かぼちゃの甘みが、甘口の酒のやさしさと重なりやすい候補です。"
+  },
+  {
+   "id": "d082",
+   "name": "筑前煮",
+   "category": "vegetable",
+   "sweetDry": [
+    "sweet",
+    "medium",
+    "dry"
+   ],
+   "temperatures": [
+    "nurukan",
+    "jokan"
+   ],
+   "general": false,
+   "reason": "根菜と鶏の旨みが溶けた煮物で、燗の酒と合わせやすい定番です。"
+  },
+  {
+   "id": "d083",
+   "name": "ふろふき大根",
+   "category": "vegetable",
+   "sweetDry": [
+    "sweet",
+    "medium"
+   ],
+   "temperatures": [
+    "nurukan",
+    "jokan",
+    "atsukan"
+   ],
+   "general": false,
+   "reason": "甘い味噌とやわらかい大根に、温めた酒が合わせやすいです。"
+  },
+  {
+   "id": "d084",
+   "name": "味噌田楽",
+   "category": "vegetable",
+   "sweetDry": [
+    "sweet",
+    "medium"
+   ],
+   "temperatures": [
+    "nurukan",
+    "jokan",
+    "atsukan"
+   ],
+   "general": false,
+   "reason": "甘い味噌の香ばしさが、旨みのある燗酒と合わせやすい候補です。"
+  },
+  {
+   "id": "d085",
+   "name": "じゃがバター",
+   "category": "vegetable",
+   "sweetDry": [
+    "sweet",
+    "medium"
+   ],
+   "temperatures": [
+    "room",
+    "nurukan"
+   ],
+   "general": false,
+   "reason": "バターの香りといもの甘みに、まろやかな酒が合わせやすいです。"
+  },
+  {
+   "id": "d086",
+   "name": "ポテトサラダ",
+   "category": "vegetable",
+   "sweetDry": [
+    "sweet"
+   ],
+   "temperatures": [
+    "room"
+   ],
+   "general": false,
+   "reason": "まろやかな味わいが、甘口の酒と合わせやすい居酒屋の定番です。"
+  },
+  {
+   "id": "d087",
+   "name": "カプレーゼ",
+   "category": "vegetable",
+   "sweetDry": [
+    "sweet"
+   ],
+   "temperatures": [
+    "cold"
+   ],
+   "general": false,
+   "reason": "トマトとチーズが、冷やした甘口の酒と合わせやすいです。"
+  },
+  {
+   "id": "d088",
+   "name": "焼き銀杏",
+   "category": "vegetable",
+   "sweetDry": [
+    "medium",
+    "dry"
+   ],
+   "temperatures": [
+    "room",
+    "nurukan"
+   ],
+   "general": false,
+   "reason": "ほろ苦さと塩気が、酒の味わいを引き立てやすいおつまみです。"
+  },
+  {
+   "id": "d089",
+   "name": "おでん",
+   "category": "nabe",
+   "sweetDry": [
+    "medium",
+    "dry"
+   ],
+   "temperatures": [
+    "nurukan",
+    "atsukan"
+   ],
+   "general": true,
+   "reason": "だしのしみた具材と燗の酒は、寒い日に合わせやすい定番です。"
+  },
+  {
+   "id": "d090",
+   "name": "寄せ鍋",
+   "category": "nabe",
+   "sweetDry": [
+    "sweet",
+    "medium",
+    "dry"
+   ],
+   "temperatures": [
+    "atsukan"
+   ],
+   "general": false,
+   "reason": "いろいろな具材のだしが、熱燗と合わせやすい候補です。"
+  },
+  {
+   "id": "d091",
+   "name": "たらちり（鱈ちり鍋）",
+   "category": "nabe",
+   "sweetDry": [
+    "medium",
+    "dry"
+   ],
+   "temperatures": [
+    "jokan",
+    "atsukan"
+   ],
+   "general": false,
+   "reason": "淡白な鱈とポン酢に、燗の辛口が合わせやすいです。"
+  },
+  {
+   "id": "d092",
+   "name": "牡蠣の土手鍋",
+   "category": "nabe",
+   "sweetDry": [
+    "sweet",
+    "medium"
+   ],
+   "temperatures": [
+    "atsukan"
+   ],
+   "general": false,
+   "reason": "味噌の甘みと牡蠣のコクが、熱燗と合わせやすい候補です。"
+  },
+  {
+   "id": "d093",
+   "name": "豚汁",
+   "category": "nabe",
+   "sweetDry": [
+    "medium",
+    "dry"
+   ],
+   "temperatures": [
+    "atsukan"
+   ],
+   "general": false,
+   "reason": "具だくさんの味噌汁が、熱燗と合わせやすいです。"
+  },
+  {
+   "id": "d094",
+   "name": "いかの塩辛",
+   "category": "chinmi",
+   "sweetDry": [
+    "dry"
+   ],
+   "temperatures": [
+    "room",
+    "nurukan",
+    "jokan",
+    "atsukan"
+   ],
+   "general": true,
+   "reason": "塩気とワタのコクが、辛口の酒をすすませやすい珍味です。"
+  },
+  {
+   "id": "d095",
+   "name": "たこわさ",
+   "category": "chinmi",
+   "sweetDry": [
+    "dry"
+   ],
+   "temperatures": [
+    "cold",
+    "room"
+   ],
+   "general": true,
+   "reason": "わさびの辛みと食感で、すっきりした酒と合わせやすい候補です。"
+  },
+  {
+   "id": "d096",
+   "name": "酒盗",
+   "category": "chinmi",
+   "sweetDry": [
+    "dry"
+   ],
+   "temperatures": [
+    "nurukan",
+    "jokan",
+    "atsukan"
+   ],
+   "general": false,
+   "reason": "強い塩気と旨みに、燗の辛口が合わせやすい珍味です。"
+  },
+  {
+   "id": "d097",
+   "name": "からすみ",
+   "category": "chinmi",
+   "sweetDry": [
+    "medium",
+    "dry"
+   ],
+   "temperatures": [
+    "cold",
+    "room"
+   ],
+   "general": false,
+   "reason": "凝縮した旨みと塩気を、酒がまろやかにしてくれやすい珍味です。"
+  },
+  {
+   "id": "d098",
+   "name": "漬物盛り合わせ",
+   "category": "chinmi",
+   "sweetDry": [
+    "medium",
+    "dry"
+   ],
+   "temperatures": [
+    "room",
+    "nurukan"
+   ],
+   "general": true,
+   "reason": "塩気と歯ごたえで、どんな酒にも合わせやすいおつまみです。"
+  },
+  {
+   "id": "d099",
+   "name": "いぶりがっこ",
+   "category": "chinmi",
+   "sweetDry": [
+    "medium",
+    "dry"
+   ],
+   "temperatures": [
+    "room"
+   ],
+   "general": false,
+   "reason": "燻した香りと塩気が、常温の酒と合わせやすい候補です。"
+  },
+  {
+   "id": "d100",
+   "name": "からし蓮根",
+   "category": "chinmi",
+   "sweetDry": [
+    "dry"
+   ],
+   "temperatures": [
+    "room",
+    "nurukan"
+   ],
+   "general": false,
+   "reason": "からしの辛みと食感を、キレのある酒が受け止めやすいです。"
+  },
+  {
+   "id": "d101",
+   "name": "クリームチーズ",
+   "category": "chinmi",
+   "sweetDry": [
+    "sweet"
+   ],
+   "temperatures": [
+    "cold",
+    "room"
+   ],
+   "general": false,
+   "reason": "乳のまろやかさが、甘口の酒のやさしさと合わせやすいです。"
+  },
+  {
+   "id": "d102",
+   "name": "チーズの味噌漬け",
+   "category": "chinmi",
+   "sweetDry": [
+    "sweet",
+    "medium"
+   ],
+   "temperatures": [
+    "cold",
+    "room"
+   ],
+   "general": false,
+   "reason": "味噌の発酵の香りが、日本酒の旨みと合わせやすい候補です。"
+  },
+  {
+   "id": "d103",
+   "name": "焼きおにぎり",
+   "category": "chinmi",
+   "sweetDry": [
+    "sweet",
+    "medium"
+   ],
+   "temperatures": [
+    "nurukan",
+    "jokan"
+   ],
+   "general": false,
+   "reason": "醤油の香ばしさで、締めにも合わせやすい一品です。"
+  }
+ ]
+}
